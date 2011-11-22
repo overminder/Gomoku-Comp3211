@@ -68,6 +68,13 @@ class Board(object):
         else:
             return self.space[y][x]
 
+    def del_at(self, x, y):
+        move = self.get_at(x, y)
+        change_in_hval = 0
+        for group in move.belongs_to:
+            change_in_hval += group.delete_move(move)
+        self.heuristic_values[move.player.as_id] += change_in_hval
+
     def place_move(self, x, y, player):
         assert self.is_valid_move(x, y)
         self.reconstruct_groups(x, y, player)
@@ -114,15 +121,4 @@ class Board(object):
                 res.append(neighbour)
         return res
 
-class ShadowBoard(object):
-    def __init__(self, board):
-        self.board = board
-
-    def place_move(self, x, y, player):
-        assert self.is_valid_move(x, y)
-        self.reconstruct_groups(x, y, player)
-        self.add_to_possible_moves(x, y)
-
-    def reconstruct_groups(self, x, y, player):
-        pass
 

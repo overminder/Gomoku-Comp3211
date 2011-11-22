@@ -1,5 +1,5 @@
 
-PLAYER_COUNT = 2
+PLAYER_COUNT = 3
 
 class Player(object):
     cache = [None] * PLAYER_COUNT
@@ -24,5 +24,5 @@ class Player(object):
 
 CIRCLE = Player('circle', 'O', 0)
 CROSS = Player('cross', 'X', 1)
-#SQUARE = Player('square', '=', 2)
+SQUARE = Player('square', '=', 2)
 

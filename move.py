@@ -75,6 +75,11 @@ class Group(object):
         #if self.min_y is None or self.min_y > move.y:
         #    self.min_y = move.y
 
+    def delete_move(self, move):
+        """ Delete move from myself and return the change in hval
+        """
+        raise NotImplementedError
+
     def try_merge_move(self, board, move):
         """ Returns the change in the heuristic value.
             XXX: for other player as well?
@@ -111,6 +116,32 @@ class DiagonalUp(Group):
 
     def __repr__(self):
         return '<group (/) %d @0x%x>' % (len(self), hash(self))
+
+    def delete_move(self, move):
+        old_value = self.heuristic_value
+        new_value = 0
+        left = [m for m in self.moves if m.x < move.x]
+        rite = [m for m in self.moves if m.x > move.x]
+        # clean up
+        #move.belongs_to[:] = []
+        #self.moves[:] = []
+
+        for lmov in left:
+            lmov.belongs_to.remove(self)
+        if len(left) > 1:
+            lgroup = DiagonalUp()
+            for lmov in left:
+                lgroup.add_move(lmov)
+            new_value += lgroup.heuristic_value
+
+        for rmov in rite:
+            rmov.belongs_to.remove(self)
+        if len(rite) > 1:
+            rgroup = DiagonalUp()
+            for rmov in rite:
+                rgroup.add_move(rmov)
+            new_value += rgroup.heuristic_value
+        return new_value - old_value
 
     def try_merge_move(self, board, move):
         old_value = self.heuristic_value
@@ -152,6 +183,32 @@ class DiagonalDown(Group):
 
     def __repr__(self):
         return '<group (\\) %d @0x%x>' % (len(self), hash(self))
+
+    def delete_move(self, move):
+        old_value = self.heuristic_value
+        new_value = 0
+        left = [m for m in self.moves if m.x < move.x]
+        rite = [m for m in self.moves if m.x > move.x]
+        # clean up
+        #move.belongs_to[:] = []
+        #self.moves[:] = []
+
+        for lmov in left:
+            lmov.belongs_to.remove(self)
+        if len(left) > 1:
+            lgroup = DiagonalDown()
+            for lmov in left:
+                lgroup.add_move(lmov)
+            new_value += lgroup.heuristic_value
+
+        for rmov in rite:
+            rmov.belongs_to.remove(self)
+        if len(rite) > 1:
+            rgroup = DiagonalDown()
+            for rmov in rite:
+                rgroup.add_move(rmov)
+            new_value += rgroup.heuristic_value
+        return new_value - old_value
 
     def try_merge_move(self, board, move):
         old_value = self.heuristic_value
@@ -195,6 +252,32 @@ class Horizontal(Group):
     def __repr__(self):
         return '<group (-) %d @0x%x>' % (len(self), hash(self))
 
+    def delete_move(self, move):
+        old_value = self.heuristic_value
+        new_value = 0
+        left = [m for m in self.moves if m.x < move.x]
+        rite = [m for m in self.moves if m.x > move.x]
+        # clean up
+        #move.belongs_to[:] = []
+        #self.moves[:] = []
+
+        for lmov in left:
+            lmov.belongs_to.remove(self)
+        if len(left) > 1:
+            lgroup = Horizontal()
+            for lmov in left:
+                lgroup.add_move(lmov)
+            new_value += lgroup.heuristic_value
+
+        for rmov in rite:
+            rmov.belongs_to.remove(self)
+        if len(rite) > 1:
+            rgroup = Horizontal()
+            for rmov in rite:
+                rgroup.add_move(rmov)
+            new_value += rgroup.heuristic_value
+        return new_value - old_value
+
     def try_merge_move(self, board, move):
         old_value = self.heuristic_value
         self_len = len(self)
@@ -235,6 +318,32 @@ class Vertical(Group):
 
     def __repr__(self):
         return '<group (|) %d @0x%x>' % (len(self), hash(self))
+
+    def delete_move(self, move):
+        old_value = self.heuristic_value
+        new_value = 0
+        upper = [m for m in self.moves if m.y < move.y]
+        lower = [m for m in self.moves if m.y > move.y]
+        # clean up
+        #move.belongs_to[:] = []
+        #self.moves[:] = []
+
+        for umov in upper:
+            umov.belongs_to.remove(self)
+        if len(upper) > 1:
+            ugroup = Vertical()
+            for umov in upper:
+                ugroup.add_move(umov)
+            new_value += ugroup.heuristic_value
+
+        for lmov in lower:
+            lmov.belongs_to.remove(self)
+        if len(lower) > 1:
+            lgroup = Vertical()
+            for lmov in lower:
+                lgroup.add_move(lmov)
+            new_value += lgroup.heuristic_value
+        return new_value - old_value
 
     def try_merge_move(self, board, move):
         old_value = self.heuristic_value
