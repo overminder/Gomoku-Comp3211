@@ -1,3 +1,4 @@
+
 PLAYER_COUNT = 2
 
 class Player(object):
@@ -20,7 +21,6 @@ class Player(object):
     @property
     def as_id(self):
         return self.pid
-
 
 CIRCLE = Player('circle', 'O', 0)
 CROSS = Player('cross', 'X', 1)

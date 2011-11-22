@@ -114,3 +114,15 @@ class Board(object):
                 res.append(neighbour)
         return res
 
+class ShadowBoard(object):
+    def __init__(self, board):
+        self.board = board
+
+    def place_move(self, x, y, player):
+        assert self.is_valid_move(x, y)
+        self.reconstruct_groups(x, y, player)
+        self.add_to_possible_moves(x, y)
+
+    def reconstruct_groups(self, x, y, player):
+        pass
+
