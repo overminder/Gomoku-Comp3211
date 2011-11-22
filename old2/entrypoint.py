@@ -12,10 +12,10 @@ def main():
     board.place_move(10, 10, CIRCLE)
 
     player = CIRCLE #.next_player
-    for _ in xrange(100):
+    for _ in xrange(10):
         future = Future(board, player)
-        #future.resolve_as_maximum(2)
-        future.alphabeta(3, -(1 << 61), (1 << 61), player)
+        future.resolve_as_maximum(2)
+        #future.alphabeta(3, -(1 << 61), (1 << 61), player)
 
         x, y = future.move
         print board.heuristic_values

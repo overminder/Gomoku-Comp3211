@@ -74,6 +74,7 @@ class Board(object):
         for group in move.belongs_to:
             change_in_hval += group.delete_move(move)
         self.heuristic_values[move.player.as_id] += change_in_hval
+        self.space[y][x] = None
 
     def place_move(self, x, y, player):
         assert self.is_valid_move(x, y)
@@ -106,7 +107,7 @@ class Board(object):
                 self.possible_moves.add((nx, ny))
 
     def iter_possible_moves(self):
-        return iter(self.possible_moves)
+        return iter(list(self.possible_moves))
 
     def mergeables_of(self, move):
         res = []

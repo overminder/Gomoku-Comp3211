@@ -171,6 +171,24 @@ class TestMoveInHorizontal(TestCase):
         self.assertEquals(self.board.heuristic_value_for(game.CIRCLE),
                           move.Group.heuristic_table[2] * 2)
 
+    def test_split_five2(self):
+        self.board.place_move(self.m1.x, self.m1.y, self.m1.player)
+        self.board.place_move(self.m2.x, self.m2.y, self.m2.player)
+        self.board.place_move(self.m3.x, self.m3.y, self.m3.player)
+        self.board.place_move(self.m4.x, self.m4.y, self.m4.player)
+        self.board.place_move(self.m5.x, self.m5.y, self.m5.player)
+        # Since moves are re-constructed.
+        m1 = self.board.get_at(self.m1.x, self.m1.y)
+        m3 = self.board.get_at(self.m3.x, self.m3.y)
+        m5 = self.board.get_at(self.m5.x, self.m5.y)
+        self.board.del_at(m3.x, m3.y)
+        self.assertEquals(len(m1.belongs_to), 1)
+        self.assertEquals(len(m1.belongs_to[0]), 2)
+        self.assertEquals(len(m5.belongs_to), 1)
+        self.assertEquals(len(m5.belongs_to[0]), 2)
+        self.assertEquals(self.board.heuristic_value_for(game.CIRCLE),
+                          move.Group.heuristic_table[2] * 2)
+
     def test_deep_copy(self):
         self.board.place_move(self.m1.x, self.m1.y, self.m1.player)
         self.board.place_move(self.m3.x, self.m3.y, self.m3.player)

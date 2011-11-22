@@ -76,24 +76,28 @@ class Future(object):
         if depth == 0:
             # Straightforward minimum.
             for (x, y) in self.board.iter_possible_moves():
-                new_board = self.board.make_deep_copy()
-                new_board.place_move(x, y, this_player)
-                total_of_other_two = (sum(new_board.heuristic_value_for(p)
+                orig_set = set(self.board.possible_moves)
+                self.board.place_move(x, y, this_player)
+                total_of_other_two = (sum(self.board.heuristic_value_for(p)
                                           for p in next_players) -
-                    new_board.heuristic_value_for(this_player))
+                    self.board.heuristic_value_for(this_player))
                 if value is None or value > total_of_other_two:
                     value = total_of_other_two
                     move = (x, y)
+                self.board.del_at(x, y) # restore.
+                self.board.possible_moves = orig_set
         else:
             for (x, y) in self.board.iter_possible_moves():
-                new_board = self.board.make_deep_copy()
-                new_board.place_move(x, y, this_player)
-                next_future = Future(new_board, next_players[0])
+                orig_set = set(self.board.possible_moves)
+                self.board.place_move(x, y, this_player)
+                next_future = Future(self.board, next_players[0])
                 next_future.resolve_as_maximum(depth - 1)
                 future_value = next_future.value
                 if value is None or value > future_value:
                     value = future_value
                     move = (x, y)
+                self.board.del_at(x, y) # restore.
+                self.board.possible_moves = orig_set
         self.value = value
         self.move = move
 
@@ -111,24 +115,28 @@ class Future(object):
         if depth == 0:
             # Straightforward maximum.
             for (x, y) in self.board.iter_possible_moves():
-                new_board = self.board.make_deep_copy()
-                new_board.place_move(x, y, this_player)
-                future_value = (new_board.heuristic_value_for(this_player) -
-                    sum(new_board.heuristic_value_for(p)
+                orig_set = set(self.board.possible_moves)
+                self.board.place_move(x, y, this_player)
+                future_value = (self.board.heuristic_value_for(this_player) -
+                    sum(self.board.heuristic_value_for(p)
                         for p in next_players))
                 if value is None or value < future_value:
                     value = future_value
                     move = (x, y)
+                self.board.del_at(x, y) # restore.
+                self.board.possible_moves = orig_set
         else:
             for (x, y) in self.board.iter_possible_moves():
-                new_board = self.board.make_deep_copy()
-                new_board.place_move(x, y, this_player)
-                next_future = Future(new_board, next_players[0])
+                orig_set = set(self.board.possible_moves)
+                self.board.place_move(x, y, this_player)
+                next_future = Future(self.board, next_players[0])
                 next_future.resolve_as_minimum(depth - 1)
                 future_value = next_future.value
                 if value is None or value < future_value:
                     value = future_value
                     move = (x, y)
+                self.board.del_at(x, y) # restore.
+                self.board.possible_moves = orig_set
         self.value = value
         self.move = move
 
