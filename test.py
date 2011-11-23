@@ -357,5 +357,29 @@ class TestBoardModel_WithAddingInDiagonalDown(_grouptest_base):
         )
         self.board = Board()
 
+class TestBoardModel_WithAddingInHorizontal(_grouptest_base):
+    def setUp(self):
+        self.pts = (
+            None, # dummy
+            (1, 0),
+            (2, 0),
+            (3, 0),
+            (4, 0),
+            (5, 0),
+        )
+        self.board = Board()
+
+class TestBoardModel_WithAddingInVertical(_grouptest_base):
+    def setUp(self):
+        self.pts = (
+            None, # dummy
+            (0, 1),
+            (0, 2),
+            (0, 3),
+            (0, 4),
+            (0, 5),
+        )
+        self.board = Board()
+
 del _grouptest_base
 
