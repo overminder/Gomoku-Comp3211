@@ -1,5 +1,6 @@
 from gamemodel import Board, circle
 from ai import Future
+from visualize import visualize_board, visualize_stat
 
 def main(argv):
     board = Board()
@@ -7,16 +8,14 @@ def main(argv):
     board.put_at(10, 10, circle)
     player = circle.get_next()
     try:
-        while True:
+        #while True:
+        for _ in xrange(10):
             future = Future(board, player)
-            #hval = future.alphabeta(4, -(1 << 61), (1 << 61), player)
-            hval = future.naive_minimax(4, player)
+            hval = future.naive_minimax(4, player) # minimax
             (x, y) = future.move
             board.put_at(x, y, player)
-
-            print board.get_state()
-            print ('[move=(%s, %s, %s), future-hval = %s, hvals=%s] ' %
-                      (player.mark, x, y, hval, board.hvals))
+            visualize_board(board)
+            visualize_stat(board, player, x, y, hval)
             player = player.get_next()
     except KeyboardInterrupt:
         pass

@@ -10,6 +10,7 @@ p2 = cross
 def len2hval(length):
     return PieceGroup.HVALTAB[length]
 
+'''
 class TestPieces(TestCase):
     def setUp(self):
         self.piece1 = Piece(2, 2, 'Circle')
@@ -102,7 +103,7 @@ class TestPieces(TestCase):
         self.piece_group.add(self.piece2)
         self.piece_group.add(self.piece3)
 
-        self.piece_group.remove(self.piece2) # which is in the side
+        self.piece_group.remove(self.board, self.piece2) # which is in the side
         self.assertEquals(len(self.piece1.groups), 1)
         self.assertEquals(self.piece1.groups[0].get_length(), 2)
         self.assertEquals(len(self.piece3.groups), 1)
@@ -116,7 +117,7 @@ class TestPieces(TestCase):
         self.piece_group.remove(self.piece1) # which is in the middle
         self.assertEquals(len(self.piece2.groups), 0)
         self.assertEquals(len(self.piece3.groups), 0)
-
+'''
 
 class TestBoardModel_WithAddingInDiagonalUp(TestCase):
     def setUp(self):
@@ -139,7 +140,10 @@ class TestBoardModel_WithAddingInDiagonalUp(TestCase):
         self.board.put_at(x, y, p)
 
     def assert_hval_is(self, val, p=p1):
-        self.assertEquals(self.board.hvals[p.pid], val)
+        self.assertEquals(self.board.get_hval(p.pid), val)
+
+    def assert_has_nb_groups(self, length, count, p=p1):
+        self.assertEquals(self.board.piece_groups[p.pid][length], count)
 
     def assert_pt_has_nb_groups(self, nth_pt, length):
         x, y = self.pts[nth_pt]
@@ -157,6 +161,7 @@ class TestBoardModel_WithAddingInDiagonalUp(TestCase):
         self.assert_hval_is(len2hval(2))
         self.assert_pt_has_nb_groups(1, 1)
         self.assert_pt_has_nb_groups(2, 1)
+        self.assert_has_nb_groups(length=2, count=1)
         self.assert_pt_group_has_len(1, nth_group=0, length=2)
         self.assert_pt_group_has_len(2, nth_group=0, length=2)
 
@@ -165,6 +170,8 @@ class TestBoardModel_WithAddingInDiagonalUp(TestCase):
         self.assert_pt_has_nb_groups(1, 1)
         self.assert_pt_has_nb_groups(2, 1)
         self.assert_pt_has_nb_groups(3, 1)
+        self.assert_has_nb_groups(length=2, count=0)
+        self.assert_has_nb_groups(length=3, count=1)
         self.assert_pt_group_has_len(1, nth_group=0, length=3)
         self.assert_pt_group_has_len(2, nth_group=0, length=3)
         self.assert_pt_group_has_len(3, nth_group=0, length=3)
@@ -211,6 +218,8 @@ class TestBoardModel_WithAddingInDiagonalUp(TestCase):
         self.del_nth(3) # [1 2 _]
         self.assertFalse(self.board.get_at(*self.pts[3]))
         self.assert_hval_is(len2hval(2))
+        self.assert_has_nb_groups(length=2, count=1)
+        self.assert_has_nb_groups(length=3, count=0)
         self.assert_pt_has_nb_groups(1, 1)
         self.assert_pt_has_nb_groups(2, 1)
         self.assert_pt_group_has_len(1, nth_group=0, length=2)
@@ -333,6 +342,8 @@ class TestBoardModel_WithAddingInDiagonalUp(TestCase):
         self.assert_pt_has_nb_groups(2, 1)
         self.assert_pt_has_nb_groups(4, 1)
         self.assert_pt_has_nb_groups(5, 1)
+        self.assert_has_nb_groups(length=2, count=2)
+        self.assert_has_nb_groups(length=5, count=0)
         self.assert_pt_group_has_len(1, nth_group=0, length=2)
         self.assert_pt_group_has_len(2, nth_group=0, length=2)
         self.assert_pt_group_has_len(4, nth_group=0, length=2)
@@ -377,4 +388,3 @@ class TestBoardModel_WithAddingInVertical(_grouptest_base):
         self.board = Board()
 
 del _grouptest_base
-

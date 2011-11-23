@@ -21,28 +21,12 @@ class Board(object):
     def __init__(self):
         self.size = 19
         self.space = make_chess_space(19)
-        self.hvals = [0] * PLAYER_COUNT
-        self.possible_moves = {}
-        #self.possible_moves = set()
+        # owning piece-groups for each player.
+        self.piece_groups = [[0] * 8 for _ in range(PLAYER_COUNT)]
+        self.possible_moves = {} # pypy hack.
 
     def __repr__(self):
         return '<board>'
-
-    def get_state(self):
-        buf = ['  /' + '-' * self.size]
-        for y, row in enumerate(self.space):
-            row_no = str(y)
-            if len(row_no) < 2:
-                row_no = row_no + ' '
-
-            line = ['%s| ' % row_no]
-            for piece in row:
-                if piece:
-                    line.append(piece.owner.mark)
-                else:
-                    line.append(' ')
-            buf.append(''.join(line))
-        return '\n'.join(buf)
 
     def pos_is_valid(self, x, y):
         return 0 <= x < self.size and 0 <= y < self.size
@@ -56,21 +40,32 @@ class Board(object):
     def del_at(self, x, y):
         piece = self.get_at(x, y)
         self.space[y][x] = None
-        change_in_hval = 0
         for group in piece.groups:
-            change_in_hval += group.remove(piece)
-        self.hvals[piece.owner.pid] += change_in_hval
+            group.remove(self, piece)
 
     def put_at(self, x, y, player):
         from pieces import Piece, merge_dual
         piece = Piece(x, y, player)
         self.space[y][x] = piece
-        change_in_hval = 0 # accumulate the change in heuristic value.
         for neighbour in self.find_mergeable_neighbours(piece):
-            change_in_hval += merge_dual(self, piece, neighbour)
-        self.hvals[player.pid] += change_in_hval
+            merge_dual(self, piece, neighbour)
         self.add_possible_move(x, y)
         return piece
+
+    def add_piece_group_(self, pid, length):
+        self.piece_groups[pid][length] += 1
+
+    def del_piece_group_(self, pid, length):
+        self.piece_groups[pid][length] -= 1
+
+    def get_hval(self, pid):
+        from pieces import PieceGroup
+
+        res = 0
+        for length, number in enumerate(self.piece_groups[pid]):
+            if number:
+                res += number * PieceGroup.HVALTAB[length]
+        return res
 
     def add_possible_move(self, x, y):
         pm = self.possible_moves

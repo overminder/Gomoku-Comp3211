@@ -63,21 +63,23 @@ class PieceGroup(object):
                 min_y = pc.y
         return min_y
 
+    def get_owner(self):
+        return self.pieces[0].owner
+
     def add(self, piece):
         self.pieces.append(piece)
         piece.groups.append(self)
 
-    def remove(self, piece):
+    def remove(self, board, piece):
         raise NotImplementedError
 
     def merge(self, board, piece):
         raise NotImplementedError
 
-    def disband(self):
-        hval = self.get_hval()
+    def disband(self, board):
+        board.del_piece_group_(self.get_owner().pid, self.get_length())
         for piece in self.pieces:
             piece.groups.remove(self)
-        return -hval
 
     def is_superset_of(self, group):
         raise NotImplementedError
@@ -88,28 +90,26 @@ class GroupWithChangeInX(PieceGroup):
         #super(GroupWithChangeInX, self).__init__()
         PieceGroup.__init__(self) # workaround.
 
-    def remove(self, piece):
-        old_hval = self.get_hval()
-        new_hval = 0
+    def remove(self, board, piece):
+        board.del_piece_group_(self.get_owner().pid, self.get_length())
         left_pieces = [p for p in self.pieces if p.x < piece.x]
         rite_pieces = [p for p in self.pieces if p.x > piece.x]
 
         for left_piece in left_pieces:
             left_piece.groups.remove(self)
         if len(left_pieces) > 1: # Necessary to make a new group.
+            board.add_piece_group_(self.get_owner().pid, len(left_pieces))
             left_group = self.__class__()
             for left_piece in left_pieces:
                 left_group.add(left_piece)
-            new_hval += left_group.get_hval()
 
         for rite_piece in rite_pieces:
             rite_piece.groups.remove(self)
         if len(rite_pieces) > 1: # Necessary to make a new group.
+            board.add_piece_group_(self.get_owner().pid, len(rite_pieces))
             rite_group = self.__class__()
             for rite_piece in rite_pieces:
                 rite_group.add(rite_piece)
-            new_hval += rite_group.get_hval()
-        return new_hval - old_hval
 
 
 class DiagonalUp(GroupWithChangeInX):
@@ -122,7 +122,6 @@ class DiagonalUp(GroupWithChangeInX):
         return '<piece-group(/) %d @0x%x>' % (len(self), hash(self))
 
     def merge(self, board, piece):
-        old_hval = self.get_hval()
         self_len = self.get_length()
         min_x = self.get_min_x()
         min_y = self.get_min_y()
@@ -137,17 +136,16 @@ class DiagonalUp(GroupWithChangeInX):
             look_ahead = board.get_at(piece.x + 1, piece.y - 1)
         else:
             # Cannot merge.
-            return 0
+            return
 
-        new_hval = self.get_hval() # After merge
-        change_in_hval = 0
+        board.del_piece_group_(self.get_owner().pid, self_len) # After merge
+        board.add_piece_group_(self.get_owner().pid, self.get_length())
         if look_ahead and look_ahead.owner is piece.owner:
-            change_in_hval += self.merge(board, look_ahead)
+            self.merge(board, look_ahead)
             # could go on merging containing group.
             for group in look_ahead.groups:
                 if self.is_superset_of(group):
-                    change_in_hval += group.disband()
-        return new_hval - old_hval + change_in_hval
+                    group.disband(board)
 
     def is_superset_of(self, the_other):
         if self is not the_other and isinstance(the_other, DiagonalUp):
@@ -173,8 +171,8 @@ class DiagonalDown(GroupWithChangeInX):
         return '<piece-group(\\) %d @0x%x>' % (len(self), hash(self))
 
     def merge(self, board, piece):
-        old_hval = self.get_hval()
         self_len = self.get_length()
+        self_len += 0
         min_x = self.get_min_x()
         min_y = self.get_min_y()
 
@@ -188,17 +186,16 @@ class DiagonalDown(GroupWithChangeInX):
             look_ahead = board.get_at(piece.x + 1, piece.y + 1)
         else:
             # Cannot merge.
-            return 0
+            return
 
-        new_hval = self.get_hval() # After merge
-        change_in_hval = 0
+        board.del_piece_group_(self.get_owner().pid, self_len) # After merge
+        board.add_piece_group_(self.get_owner().pid, self.get_length())
         if look_ahead and look_ahead.owner is piece.owner:
-            change_in_hval += self.merge(board, look_ahead)
+            self.merge(board, look_ahead)
             # could go on merging containing group.
             for group in look_ahead.groups:
                 if self.is_superset_of(group):
-                    change_in_hval += group.disband()
-        return new_hval - old_hval + change_in_hval
+                    group.disband(board)
 
     def is_superset_of(self, the_other):
         if self is not the_other and isinstance(the_other, DiagonalDown):
@@ -224,7 +221,6 @@ class Horizontal(GroupWithChangeInX):
         return '<piece-group(-) %d @0x%x>' % (len(self), hash(self))
 
     def merge(self, board, piece):
-        old_hval = self.get_hval()
         self_len = self.get_length()
         min_x = self.get_min_x()
         min_y = self.get_min_y()
@@ -239,17 +235,16 @@ class Horizontal(GroupWithChangeInX):
             look_ahead = board.get_at(piece.x + 1, piece.y)
         else:
             # Cannot merge.
-            return 0
+            return
 
-        new_hval = self.get_hval() # After merge
-        change_in_hval = 0
+        board.del_piece_group_(self.get_owner().pid, self_len) # After merge
+        board.add_piece_group_(self.get_owner().pid, self.get_length())
         if look_ahead and look_ahead.owner is piece.owner:
-            change_in_hval += self.merge(board, look_ahead)
+            self.merge(board, look_ahead)
             # could go on merging containing group.
             for group in look_ahead.groups:
                 if self.is_superset_of(group):
-                    change_in_hval += group.disband()
-        return new_hval - old_hval + change_in_hval
+                    group.disband(board)
 
     def is_superset_of(self, the_other):
         if self is not the_other and isinstance(the_other, Horizontal):
@@ -271,9 +266,8 @@ class GroupWithChangeInY(PieceGroup):
         #super(GroupWithChangeInY, self).__init__()
         PieceGroup.__init__(self) # workaround.
 
-    def remove(self, piece):
-        old_hval = self.get_hval()
-        new_hval = 0
+    def remove(self, board, piece):
+        board.del_piece_group_(self.get_owner().pid, self.get_length())
         top_pieces = [p for p in self.pieces if p.y < piece.y]
         bottom_pieces = [p for p in self.pieces if p.y > piece.y]
 
@@ -283,7 +277,7 @@ class GroupWithChangeInY(PieceGroup):
             top_group = self.__class__()
             for top_piece in top_pieces:
                 top_group.add(top_piece)
-            new_hval += top_group.get_hval()
+            board.add_piece_group_(self.get_owner().pid, len(top_pieces))
 
         for bottom_piece in bottom_pieces:
             bottom_piece.groups.remove(self)
@@ -291,8 +285,7 @@ class GroupWithChangeInY(PieceGroup):
             bottom_group = self.__class__()
             for bottom_piece in bottom_pieces:
                 bottom_group.add(bottom_piece)
-            new_hval += bottom_group.get_hval()
-        return new_hval - old_hval
+            board.add_piece_group_(self.get_owner().pid, len(bottom_pieces))
 
 class Vertical(GroupWithChangeInY):
     ' - '
@@ -304,8 +297,8 @@ class Vertical(GroupWithChangeInY):
         return '<piece-group(-) %d @0x%x>' % (len(self), hash(self))
 
     def merge(self, board, piece):
-        old_hval = self.get_hval()
         self_len = self.get_length()
+        self_len += 0
         min_x = self.get_min_x()
         min_y = self.get_min_y()
 
@@ -319,17 +312,16 @@ class Vertical(GroupWithChangeInY):
             look_ahead = board.get_at(piece.x, piece.y + 1)
         else:
             # Cannot merge.
-            return 0
+            return
 
-        new_hval = self.get_hval() # After merge
-        change_in_hval = 0
+        board.del_piece_group_(self.get_owner().pid, self_len) # After merge
+        board.add_piece_group_(self.get_owner().pid, self.get_length())
         if look_ahead and look_ahead.owner is piece.owner:
-            change_in_hval += self.merge(board, look_ahead)
+            self.merge(board, look_ahead)
             # could go on merging containing group.
             for group in look_ahead.groups:
                 if self.is_superset_of(group):
-                    change_in_hval += group.disband()
-        return new_hval - old_hval + change_in_hval
+                    group.disband(board)
 
     def is_superset_of(self, the_other):
         if self is not the_other and isinstance(the_other, Vertical):
@@ -367,15 +359,14 @@ def merge_dual(board, new, old):
         return merge_dual(board, old, new) # flip.
     new_group.add(new)
     new_group.add(old)
+    board.add_piece_group_(new.owner.pid, 2)
 
-    # try to merge ahead.
-    change_in_hval = new_group.get_hval()
+    # try to merge ahead. XXX: pypy hack to use list
     for la_piece in [board.get_at(*look_ahead_1),
                      board.get_at(*look_ahead_2)]:
         if la_piece and la_piece.owner is owner:
-            change_in_hval += new_group.merge(board, la_piece)
+            new_group.merge(board, la_piece)
             for group in la_piece.groups[:]:
                 if new_group.is_superset_of(group):
-                    change_in_hval += group.disband()
-    return change_in_hval
+                    group.disband(board)
 
