@@ -9,7 +9,7 @@ def main(argv):
     player = circle.get_next()
     try:
         #while True:
-        for _ in xrange(10):
+        for _ in xrange(20):
             future = Future(board, player)
             hval = future.naive_minimax(4, player) # minimax
             (x, y) = future.move

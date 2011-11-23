@@ -1,7 +1,7 @@
 from unittest import TestCase
 from random import shuffle
 
-from gamemodel import Board, circle, cross
+from gamemodel import Board, circle, cross, SmallSet
 from pieces import Piece, PieceGroup, DiagonalUp, merge_dual
 
 p1 = circle
@@ -388,3 +388,38 @@ class TestBoardModel_WithAddingInVertical(_grouptest_base):
         self.board = Board()
 
 del _grouptest_base
+
+class TestSmallSet(TestCase):
+    def setUp(self):
+        self.ss = SmallSet(19)
+
+    def test_put_at(self):
+        self.assertFalse(self.ss.get_at(1, 1))
+        self.ss.put_at(1, 1)
+        self.assertTrue(self.ss.get_at(1, 1))
+
+    def test_iter_1(self):
+        self.ss.put_at(0, 0)
+        lis = []
+        it = self.ss.get_iterator()
+        while it.has_next():
+            lis.append(it.get_next())
+
+        self.assertEquals(len(lis), 1)
+        self.assertEquals(lis[0], (0, 0))
+
+    def test_iter_2(self):
+        reference = []
+        for y in xrange(19):
+            for x in xrange(19):
+                reference.append((x, y))
+                self.ss.put_at(x, y)
+
+        lis = []
+        it = self.ss.get_iterator()
+        while it.has_next():
+            lis.append(it.get_next())
+
+        self.assertEquals(len(lis), 19 * 19)
+        self.assertEquals(lis, reference)
+

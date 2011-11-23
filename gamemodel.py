@@ -23,7 +23,7 @@ class Board(object):
         self.space = make_chess_space(19)
         # owning piece-groups for each player.
         self.piece_groups = [[0] * 8 for _ in range(PLAYER_COUNT)]
-        self.possible_moves = {} # pypy hack.
+        self.possible_moves = SmallSet(self.size)
 
     def __repr__(self):
         return '<board>'
@@ -69,21 +69,17 @@ class Board(object):
 
     def add_possible_move(self, x, y):
         pm = self.possible_moves
-        if (x, y) in pm:
-            del pm[(x, y)]
+        pm.del_at(x, y)
         for (nx, ny) in make_neighbours(x, y):
         #for (nx, ny) in make_larger_neighbours(x, y):
             if self.pos_is_valid(nx, ny) and self.get_at(nx, ny) is None:
-                pm[(nx, ny)] = True
+                pm.put_at(nx, ny)
 
     def get_possible_moves(self):
-        return self.possible_moves.keys()
+        return self.possible_moves
 
-    def set_possible_moves(self, lis):
-        pm = {}
-        for pos in lis:
-            pm[pos] = True
-        self.possible_moves = pm
+    def set_possible_moves(self, sset):
+        self.possible_moves = sset
 
     def find_mergeable_neighbours(self, piece):
         res = []
@@ -92,6 +88,65 @@ class Board(object):
             if neighbour and neighbour.owner is piece.owner:
                 res.append(neighbour)
         return res
+
+# For efficient move recording.
+class SmallSet(object):
+    def __init__(self, size, data=None):
+        self.size = size
+        if not data:
+            data = [[False] * size for _ in xrange(size)]
+        self.data = data
+
+    def put_at(self, x, y):
+        self.data[y][x] = True
+
+    def del_at(self, x, y):
+        self.data[y][x] = False
+
+    def get_at(self, x, y):
+        return self.data[y][x]
+
+    def get_iterator(self):
+        return SmallSetIterator(self)
+
+    def make_copy(self):
+        # XXX: reduce copy overhead.
+        data = [row[:] for row in self.data]
+        return SmallSet(self.size, data)
+
+class SmallSetIterator(object):
+    def __init__(self, base):
+        self.base = base
+        self.x = -1
+        self.y = 0
+        self.peeked = False
+        self.closed = False
+
+    def has_next(self):
+        if self.closed:
+            return False
+        if self.peeked:
+            return True
+        while True:
+            self.x += 1
+            if self.x >= self.base.size:
+                self.x = 0
+                self.y += 1
+                if self.y >= self.base.size:
+                    self.closed = True
+                    return False
+            value = self.base.get_at(self.x, self.y)
+            if value:
+                self.peeked = True
+                return True
+    has_next._always_inline_ = True
+
+    def get_next(self):
+        if not self.has_next():
+            raise StopIteration
+        self.peeked = False
+        return (self.x, self.y)
+    get_next._always_inline_ = True
 
 def make_chess_space(size, fill=None):
     return [[fill] * size for _ in xrange(size)]

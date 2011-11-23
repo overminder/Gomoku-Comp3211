@@ -362,8 +362,9 @@ def merge_dual(board, new, old):
     board.add_piece_group_(new.owner.pid, 2)
 
     # try to merge ahead. XXX: pypy hack to use list
-    for la_piece in [board.get_at(*look_ahead_1),
-                     board.get_at(*look_ahead_2)]:
+    piece1, piece2 = board.get_at(*look_ahead_1), board.get_at(*look_ahead_2)
+
+    for la_piece in [piece1, piece2]:
         if la_piece and la_piece.owner is owner:
             new_group.merge(board, la_piece)
             for group in la_piece.groups[:]:

@@ -22,8 +22,10 @@ class Future(object):
 
         elif mover is self.player: # max
             saved_pmoves = self.board.get_possible_moves()
-            for x, y in saved_pmoves:
-                self.board.set_possible_moves(saved_pmoves)
+            pm_iter = saved_pmoves.get_iterator()
+            while pm_iter.has_next():
+                (x, y) = pm_iter.get_next()
+                self.board.set_possible_moves(saved_pmoves.make_copy())
                 self.board.put_at(x, y, mover)
                 next_future = Future(self.board, self.player)
                 future_value = next_future.naive_minimax(
@@ -37,8 +39,10 @@ class Future(object):
             return best_value
         else: # min
             saved_pmoves = self.board.get_possible_moves()
-            for x, y in saved_pmoves:
-                self.board.set_possible_moves(saved_pmoves)
+            pm_iter = saved_pmoves.get_iterator()
+            while pm_iter.has_next():
+                (x, y) = pm_iter.get_next()
+                self.board.set_possible_moves(saved_pmoves.make_copy())
                 self.board.put_at(x, y, mover)
                 next_future = Future(self.board, self.player)
                 future_value = next_future.naive_minimax(
