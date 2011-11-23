@@ -22,7 +22,8 @@ class Board(object):
         self.size = 19
         self.space = make_chess_space(19)
         self.hvals = [0] * PLAYER_COUNT
-        self.possible_moves = set()
+        self.possible_moves = {}
+        #self.possible_moves = set()
 
     def __repr__(self):
         return '<board>'
@@ -30,7 +31,11 @@ class Board(object):
     def get_state(self):
         buf = ['  /' + '-' * self.size]
         for y, row in enumerate(self.space):
-            line = ['%2d| ' % y]
+            row_no = str(y)
+            if len(row_no) < 2:
+                row_no = row_no + ' '
+
+            line = ['%s| ' % row_no]
             for piece in row:
                 if piece:
                     line.append(piece.owner.mark)
@@ -70,13 +75,19 @@ class Board(object):
     def add_possible_move(self, x, y):
         pm = self.possible_moves
         if (x, y) in pm:
-            pm.remove((x, y))
+            del pm[(x, y)]
         for (nx, ny) in make_neighbours(x, y):
             if self.pos_is_valid(nx, ny) and self.get_at(nx, ny) is None:
-                pm.add((nx, ny))
+                pm[(nx, ny)] = True
 
-    def iter_possible_moves(self):
-        return list(self.possible_moves)
+    def get_possible_moves(self):
+        return self.possible_moves.keys()
+
+    def set_possible_moves(self, lis):
+        pm = {}
+        for pos in lis:
+            pm[pos] = True
+        self.possible_moves = pm
 
     def find_mergeable_neighbours(self, piece):
         res = []
@@ -90,7 +101,7 @@ def make_chess_space(size, fill=None):
     return [[fill] * size for _ in xrange(size)]
 
 def make_neighbours(x, y):
-    return [(x + dx, y + dy) for dx in (-1, 0, 1)
-                             for dy in (-1, 0, 1)
+    return [(x + dx, y + dy) for dx in [-1, 0, 1]
+                             for dy in [-1, 0, 1]
                              if not (dx == dy == 0)]
 

@@ -35,25 +35,32 @@ class Piece(object):
 
 class PieceGroup(object):
     #          0x 1x 2x 3x  4x   5x     6x     7x     8x
-    HVALTAB = (0, 0, 4, 45, 999, 99999, 99999, 99999, 99999)
+    HVALTAB = [0, 0, 4, 15, 999, 99999, 999999, 9999999, 99999999]
 
     def __init__(self):
         self.pieces = []
 
-    def __len__(self):
+    def get_length(self):
         return len(self.pieces)
 
-    @property
-    def hval(self):
-        return self.HVALTAB[len(self)]
+    def get_hval(self):
+        return self.HVALTAB[self.get_length()]
 
-    @property
-    def min_x(self):
-        return min(pc.x for pc in self.pieces)
+    def get_min_x(self):
+        # pypy work around..
+        min_x = self.pieces[0].x
+        for pc in self.pieces:
+            if pc.x < min_x:
+                min_x = pc.x
+        return min_x
 
-    @property
-    def min_y(self):
-        return min(pc.y for pc in self.pieces)
+    def get_min_y(self):
+        # pypy work around..
+        min_y = self.pieces[0].y
+        for pc in self.pieces:
+            if pc.y < min_y:
+                min_y = pc.y
+        return min_y
 
     def add(self, piece):
         self.pieces.append(piece)
@@ -66,7 +73,7 @@ class PieceGroup(object):
         raise NotImplementedError
 
     def disband(self):
-        hval = self.hval
+        hval = self.get_hval()
         for piece in self.pieces:
             piece.groups.remove(self)
         return -hval
@@ -77,10 +84,11 @@ class PieceGroup(object):
 class GroupWithChangeInX(PieceGroup):
     """ Those three groups (\\) (-) (/) can share the same remove method. """
     def __init__(self):
-        super(GroupWithChangeInX, self).__init__()
+        #super(GroupWithChangeInX, self).__init__()
+        PieceGroup.__init__(self) # workaround.
 
     def remove(self, piece):
-        old_hval = self.hval
+        old_hval = self.get_hval()
         new_hval = 0
         left_pieces = [p for p in self.pieces if p.x < piece.x]
         rite_pieces = [p for p in self.pieces if p.x > piece.x]
@@ -91,7 +99,7 @@ class GroupWithChangeInX(PieceGroup):
             left_group = self.__class__()
             for left_piece in left_pieces:
                 left_group.add(left_piece)
-            new_hval += left_group.hval
+            new_hval += left_group.get_hval()
 
         for rite_piece in rite_pieces:
             rite_piece.groups.remove(self)
@@ -99,23 +107,24 @@ class GroupWithChangeInX(PieceGroup):
             rite_group = self.__class__()
             for rite_piece in rite_pieces:
                 rite_group.add(rite_piece)
-            new_hval += rite_group.hval
+            new_hval += rite_group.get_hval()
         return new_hval - old_hval
 
 
 class DiagonalUp(GroupWithChangeInX):
     ' / '
     def __init__(self):
-        super(DiagonalUp, self).__init__()
+        #super(DiagonalUp, self).__init__()
+        GroupWithChangeInX.__init__(self) # workaround.
 
     def __repr__(self):
         return '<piece-group(/) %d @0x%x>' % (len(self), hash(self))
 
     def merge(self, board, piece):
-        old_hval = self.hval
-        self_len = len(self)
-        min_x = self.min_x
-        min_y = self.min_y
+        old_hval = self.get_hval()
+        self_len = self.get_length()
+        min_x = self.get_min_x()
+        min_y = self.get_min_y()
 
         if piece.x == min_x - 1 and piece.y == min_y + self_len:
             # piece -v ./
@@ -129,7 +138,7 @@ class DiagonalUp(GroupWithChangeInX):
             # Cannot merge.
             return 0
 
-        new_hval = self.hval # After merge
+        new_hval = self.get_hval() # After merge
         change_in_hval = 0
         if look_ahead and look_ahead.owner is piece.owner:
             change_in_hval += self.merge(board, look_ahead)
@@ -143,28 +152,30 @@ class DiagonalUp(GroupWithChangeInX):
         if self is not the_other and isinstance(the_other, DiagonalUp):
             p1 = self.pieces[0]
             p2 = the_other.pieces[0]
-            self_min_x = self.min_x
-            other_min_x = the_other.min_x
+            self_min_x = self.get_min_x()
+            other_min_x = the_other.get_min_x()
             return (
                 p1.y - p2.y == p2.x - p1.x and # dy/dx == -1
                 self_min_x <= other_min_x and
-                self_min_x + len(self) >= other_min_x + len(the_other)
+                self_min_x + self.get_length() >=
+                    other_min_x + the_other.get_length()
             )
         return False
 
 class DiagonalDown(GroupWithChangeInX):
     ' \ '
     def __init__(self):
-        super(DiagonalDown, self).__init__()
+        #super(DiagonalDown, self).__init__()
+        GroupWithChangeInX.__init__(self) # workaround.
 
     def __repr__(self):
         return '<piece-group(\\) %d @0x%x>' % (len(self), hash(self))
 
     def merge(self, board, piece):
-        old_hval = self.hval
-        self_len = len(self)
-        min_x = self.min_x
-        min_y = self.min_y
+        old_hval = self.get_hval()
+        self_len = self.get_length()
+        min_x = self.get_min_x()
+        min_y = self.get_min_y()
 
         if piece.x == min_x - 1 and piece.y == min_y - 1:
             # piece -^ \
@@ -178,7 +189,7 @@ class DiagonalDown(GroupWithChangeInX):
             # Cannot merge.
             return 0
 
-        new_hval = self.hval # After merge
+        new_hval = self.get_hval() # After merge
         change_in_hval = 0
         if look_ahead and look_ahead.owner is piece.owner:
             change_in_hval += self.merge(board, look_ahead)
@@ -192,28 +203,30 @@ class DiagonalDown(GroupWithChangeInX):
         if self is not the_other and isinstance(the_other, DiagonalDown):
             p1 = self.pieces[0]
             p2 = the_other.pieces[0]
-            self_min_x = self.min_x
-            other_min_x = the_other.min_x
+            self_min_x = self.get_min_x()
+            other_min_x = the_other.get_min_x()
             return (
                 p1.y - p2.y == p1.x - p2.x and # dy/dx == 1
                 self_min_x <= other_min_x and
-                self_min_x + len(self) >= other_min_x + len(the_other)
+                self_min_x + self.get_length() >=
+                    other_min_x + the_other.get_length()
             )
         return False
 
 class Horizontal(GroupWithChangeInX):
     ' - '
     def __init__(self):
-        super(Horizontal, self).__init__()
+        GroupWithChangeInX.__init__(self) # workaround for pypy
+        #super(Horizontal, self).__init__()
 
     def __repr__(self):
         return '<piece-group(-) %d @0x%x>' % (len(self), hash(self))
 
     def merge(self, board, piece):
-        old_hval = self.hval
-        self_len = len(self)
-        min_x = self.min_x
-        min_y = self.min_y
+        old_hval = self.get_hval()
+        self_len = self.get_length()
+        min_x = self.get_min_x()
+        min_y = self.get_min_y()
 
         if piece.x == min_x - 1 and piece.y == min_y:
             # piece -> -
@@ -227,7 +240,7 @@ class Horizontal(GroupWithChangeInX):
             # Cannot merge.
             return 0
 
-        new_hval = self.hval # After merge
+        new_hval = self.get_hval() # After merge
         change_in_hval = 0
         if look_ahead and look_ahead.owner is piece.owner:
             change_in_hval += self.merge(board, look_ahead)
@@ -241,22 +254,24 @@ class Horizontal(GroupWithChangeInX):
         if self is not the_other and isinstance(the_other, Horizontal):
             p1 = self.pieces[0]
             p2 = the_other.pieces[0]
-            self_min_x = self.min_x
-            other_min_x = the_other.min_x
+            self_min_x = self.get_min_x()
+            other_min_x = the_other.get_min_x()
             return (
                 p1.y == p2.y and
                 self_min_x <= other_min_x and
-                self_min_x + len(self) >= other_min_x + len(the_other)
+                self_min_x + self.get_length() >=
+                    other_min_x + the_other.get_length()
             )
         return False
 
 class GroupWithChangeInY(PieceGroup):
     """ This group (|) has a different remove method. """
     def __init__(self):
-        super(GroupWithChangeInY, self).__init__()
+        #super(GroupWithChangeInY, self).__init__()
+        PieceGroup.__init__(self) # workaround.
 
     def remove(self, piece):
-        old_hval = self.hval
+        old_hval = self.get_hval()
         new_hval = 0
         top_pieces = [p for p in self.pieces if p.y < piece.y]
         bottom_pieces = [p for p in self.pieces if p.y > piece.y]
@@ -267,7 +282,7 @@ class GroupWithChangeInY(PieceGroup):
             top_group = self.__class__()
             for top_piece in top_pieces:
                 top_group.add(top_piece)
-            new_hval += top_group.hval
+            new_hval += top_group.get_hval()
 
         for bottom_piece in bottom_pieces:
             bottom_piece.groups.remove(self)
@@ -275,22 +290,23 @@ class GroupWithChangeInY(PieceGroup):
             bottom_group = self.__class__()
             for bottom_piece in bottom_pieces:
                 bottom_group.add(bottom_piece)
-            new_hval += bottom_group.hval
+            new_hval += bottom_group.get_hval()
         return new_hval - old_hval
 
 class Vertical(GroupWithChangeInY):
     ' - '
     def __init__(self):
-        super(Vertical, self).__init__()
+        #super(Vertical, self).__init__()
+        GroupWithChangeInY.__init__(self) # workaround.
 
     def __repr__(self):
         return '<piece-group(-) %d @0x%x>' % (len(self), hash(self))
 
     def merge(self, board, piece):
-        old_hval = self.hval
-        self_len = len(self)
-        min_x = self.min_x
-        min_y = self.min_y
+        old_hval = self.get_hval()
+        self_len = self.get_length()
+        min_x = self.get_min_x()
+        min_y = self.get_min_y()
 
         if piece.x == min_x and piece.y == min_y - 1:
             # piece -> -
@@ -304,7 +320,7 @@ class Vertical(GroupWithChangeInY):
             # Cannot merge.
             return 0
 
-        new_hval = self.hval # After merge
+        new_hval = self.get_hval() # After merge
         change_in_hval = 0
         if look_ahead and look_ahead.owner is piece.owner:
             change_in_hval += self.merge(board, look_ahead)
@@ -318,12 +334,13 @@ class Vertical(GroupWithChangeInY):
         if self is not the_other and isinstance(the_other, Vertical):
             p1 = self.pieces[0]
             p2 = the_other.pieces[0]
-            self_min_y = self.min_y
-            other_min_y = the_other.min_y
+            self_min_y = self.get_min_y()
+            other_min_y = the_other.get_min_y()
             return (
                 p1.x == p2.x and
                 self_min_y <= other_min_y and
-                self_min_y + len(self) >= other_min_y + len(the_other)
+                self_min_y + self.get_length() >=
+                    other_min_y + the_other.get_length()
             )
         return False
 
@@ -351,9 +368,9 @@ def merge_dual(board, new, old):
     new_group.add(old)
 
     # try to merge ahead.
-    change_in_hval = new_group.hval
-    for la_piece in (board.get_at(*look_ahead_1),
-                     board.get_at(*look_ahead_2)):
+    change_in_hval = new_group.get_hval()
+    for la_piece in [board.get_at(*look_ahead_1),
+                     board.get_at(*look_ahead_2)]:
         if la_piece and la_piece.owner is owner:
             change_in_hval += new_group.merge(board, la_piece)
             for group in la_piece.groups[:]:

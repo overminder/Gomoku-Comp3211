@@ -1,12 +1,11 @@
 from unittest import TestCase
 from random import shuffle
 
-from gamemodel import Board, circle, cross, square
+from gamemodel import Board, circle, cross
 from pieces import Piece, PieceGroup, DiagonalUp, merge_dual
 
 p1 = circle
 p2 = cross
-p3 = square
 
 def len2hval(length):
     return PieceGroup.HVALTAB[length]
@@ -68,7 +67,7 @@ class TestPieces(TestCase):
         self.piece_group.add(self.piece2)
         dhval = self.piece_group.merge(FakeBoard(), self.piece3)
         self.assertEquals(dhval, len2hval(3) - len2hval(2))
-        self.assertEquals(len(self.piece_group), 3)
+        self.assertEquals(self.piece_group.get_length(), 3)
         self.assertEquals(self.piece_group.hval, len2hval(3))
 
     def test_piece_group_merge_dual(self):
@@ -82,7 +81,7 @@ class TestPieces(TestCase):
                     if p.x == x and p.y == y:
                         return p
         dhval = merge_dual(FakeBoard(), self.piece2, self.piece1)
-        self.assertEquals(len(self.piece1.groups), 1)
+        self.assertEquals(self.piece1.groups.get_length(), 1)
         self.assertEquals(len(self.piece1.groups[0]), 3)
         self.assertEquals(dhval, len2hval(3))
         self.assertEquals(self.piece1.groups[0].hval, len2hval(3))
@@ -105,9 +104,9 @@ class TestPieces(TestCase):
 
         self.piece_group.remove(self.piece2) # which is in the side
         self.assertEquals(len(self.piece1.groups), 1)
-        self.assertEquals(len(self.piece1.groups[0]), 2)
+        self.assertEquals(self.piece1.groups[0].get_length(), 2)
         self.assertEquals(len(self.piece3.groups), 1)
-        self.assertEquals(len(self.piece3.groups[0]), 2)
+        self.assertEquals(self.piece3.groups[0].get_length(), 2)
 
     def test_piece_group_remove_3to11(self):
         self.piece_group.add(self.piece1)
@@ -148,8 +147,9 @@ class TestBoardModel_WithAddingInDiagonalUp(TestCase):
 
     def assert_pt_group_has_len(self, nth_pt, nth_group, length):
         x, y = self.pts[nth_pt]
-        self.assertEquals(len(self.board.get_at(x, y).groups[nth_group]),
-                          length)
+        self.assertEquals(
+                self.board.get_at(x, y).groups[nth_group].get_length(),
+                length)
 
     def test_put_at_3_1(self):
         self.put_nth(1)
