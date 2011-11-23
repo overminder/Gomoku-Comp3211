@@ -1,5 +1,21 @@
 
-PLAYER_COUNT = 3
+class Player(object):
+    cache = []
+    def __init__(self, name, mark):
+        pid = len(self.cache)
+        self.pid = pid
+        self.cache.append(self)
+        self.name = name
+        self.mark = mark
+
+    def get_next(self):
+        return self.cache[(self.pid + 1) % len(self.cache)]
+
+circle = Player('Circle', 'O')
+cross = Player('Cross', 'X')
+#square = Player('Square', '=')
+
+PLAYER_COUNT = len(Player.cache)
 
 class Board(object):
     def __init__(self):
@@ -10,6 +26,18 @@ class Board(object):
 
     def __repr__(self):
         return '<board>'
+
+    def get_state(self):
+        buf = ['  /' + '-' * self.size]
+        for y, row in enumerate(self.space):
+            line = ['%2d| ' % y]
+            for piece in row:
+                if piece:
+                    line.append(piece.owner.mark)
+                else:
+                    line.append(' ')
+            buf.append(''.join(line))
+        return '\n'.join(buf)
 
     def pos_is_valid(self, x, y):
         return 0 <= x < self.size and 0 <= y < self.size
@@ -48,7 +76,7 @@ class Board(object):
                 pm.add((nx, ny))
 
     def iter_possible_moves(self):
-        return iter(list(self.possible_moves))
+        return list(self.possible_moves)
 
     def find_mergeable_neighbours(self, piece):
         res = []

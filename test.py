@@ -1,17 +1,12 @@
 from unittest import TestCase
 from random import shuffle
 
-from boardmodel import Board
+from gamemodel import Board, circle, cross, square
 from pieces import Piece, PieceGroup, DiagonalUp, merge_dual
 
-class Player(object):
-    """ Dummy player class
-    """
-    def __init__(self, pid):
-        self.pid = pid
-p1 = Player(0)
-p2 = Player(1)
-p3 = Player(2)
+p1 = circle
+p2 = cross
+p3 = square
 
 def len2hval(length):
     return PieceGroup.HVALTAB[length]
