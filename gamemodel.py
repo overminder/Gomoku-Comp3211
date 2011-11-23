@@ -77,6 +77,7 @@ class Board(object):
         if (x, y) in pm:
             del pm[(x, y)]
         for (nx, ny) in make_neighbours(x, y):
+        #for (nx, ny) in make_larger_neighbours(x, y):
             if self.pos_is_valid(nx, ny) and self.get_at(nx, ny) is None:
                 pm[(nx, ny)] = True
 
@@ -100,8 +101,20 @@ class Board(object):
 def make_chess_space(size, fill=None):
     return [[fill] * size for _ in xrange(size)]
 
-def make_neighbours(x, y):
-    return [(x + dx, y + dy) for dx in [-1, 0, 1]
-                             for dy in [-1, 0, 1]
-                             if not (dx == dy == 0)]
+def make_make_neighbours():
+    code = []
+    w = lambda s: code.append(s)
+    w('def make_neighbours(x, y):')
+    w('    return [')
+    for dx in (-1, 0, 1):
+        for dy in (-1, 0, 1):
+            if not dx == dy == 0:
+                w('    (x + %d, y + %d),' % (dx, dy))
+    w('    ]')
+    env = {}
+    exec '\n'.join(code) in env
+    return env['make_neighbours']
+
+make_neighbours = make_make_neighbours()
+
 

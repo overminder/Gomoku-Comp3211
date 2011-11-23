@@ -3,12 +3,13 @@ from ai import Future
 
 def main(argv):
     board = Board()
+    board.put_at(9, 9, circle)
     board.put_at(10, 10, circle)
     player = circle.get_next()
     try:
         while True:
             future = Future(board, player)
-            #hval = future.alphabeta(5, -(1 << 61), (1 << 61), player)
+            #hval = future.alphabeta(4, -(1 << 61), (1 << 61), player)
             hval = future.naive_minimax(4, player)
             (x, y) = future.move
             board.put_at(x, y, player)
@@ -21,7 +22,8 @@ def main(argv):
         pass
     return 0
 
-def target(*argl):
+def target(driver, argl):
+    driver.exe_name = 'gomoku-c'
     return main, None
 
 if __name__ == '__main__':

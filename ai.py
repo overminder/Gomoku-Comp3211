@@ -13,9 +13,9 @@ class Future(object):
             return self_hval - other_hval
 
         elif mover is self.player: # max
-            saved_pmoves = self.board.possible_moves
+            saved_pmoves = self.board.get_possible_moves()
             for (x, y) in saved_pmoves:
-                self.board.possible_moves = set(saved_pmoves)
+                self.board.set_possible_moves(saved_pmoves)
                 self.board.put_at(x, y, mover)
                 next_future = Future(self.board, self.player)
                 future_value = next_future.alphabeta(depth - 1, alpha, beta,
@@ -24,13 +24,13 @@ class Future(object):
                 self.board.del_at(x, y) # Restore the board.
                 if beta <= alpha: # beta cutoff
                     break
-            self.board.possible_moves = set(saved_pmoves)
+            self.board.set_possible_moves(saved_pmoves)
             self.move = (x, y)
             return alpha
         else: # min
-            saved_pmoves = self.board.possible_moves
+            saved_pmoves = self.board.get_possible_moves()
             for (x, y) in saved_pmoves:
-                self.board.possible_moves = set(saved_pmoves)
+                self.board.set_possible_moves(saved_pmoves)
                 self.board.put_at(x, y, mover)
                 next_future = Future(self.board, self.player)
                 future_value = next_future.alphabeta(depth - 1, alpha, beta,
@@ -39,7 +39,7 @@ class Future(object):
                 self.board.del_at(x, y) # Restore the board.
                 if beta <= alpha: # beta cutoff
                     break
-            self.board.possible_moves = set(saved_pmoves)
+            self.board.set_possible_moves(saved_pmoves)
             self.move = (x, y)
             return beta
 
@@ -53,9 +53,7 @@ class Future(object):
             other_hval = 0
             for hval in other_hvals:
                 other_hval += hval
-            assert isinstance(self_hval, int)
-            assert isinstance(other_hval, int)
-            return self_hval - other_hval
+            return self_hval - 2 * other_hval
 
         elif mover is self.player: # max
             saved_pmoves = self.board.get_possible_moves()

@@ -35,7 +35,8 @@ class Piece(object):
 
 class PieceGroup(object):
     #          0x 1x 2x 3x  4x   5x     6x     7x     8x
-    HVALTAB = [0, 0, 4, 15, 999, 99999, 999999, 9999999, 99999999]
+    HVALTAB = [0, 0, 4, 15, 35, 99999, 999999, 9999999, 99999999]
+    # for 2(2x) -> 2(3x) but not 3x->4x, 2(3x - 2x) > 4x - 3x
 
     def __init__(self):
         self.pieces = []

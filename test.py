@@ -25,15 +25,15 @@ class TestPieces(TestCase):
 
     def test_piece_group_init(self):
         self.assertEquals(self.piece_group.pieces, [])
-        self.assertEquals(len(self.piece_group), 0)
+        self.assertEquals(self.piece_group.get_length(), 0)
 
     def test_piece_group_add(self):
         self.piece_group.add(self.piece1)
-        self.assertEquals(self.piece_group.min_x, 2)
-        self.assertEquals(self.piece_group.min_y, 2)
+        self.assertEquals(self.piece_group.get_min_x(), 2)
+        self.assertEquals(self.piece_group.get_min_y(), 2)
         self.piece_group.add(self.piece2)
-        self.assertEquals(self.piece_group.min_x, 1)
-        self.assertEquals(self.piece_group.min_y, 2)
+        self.assertEquals(self.piece_group.get_min_x(), 1)
+        self.assertEquals(self.piece_group.get_min_y(), 2)
 
     def test_piece_group_subset_of_succ(self):
         self.piece_group.add(self.piece1)
@@ -68,7 +68,7 @@ class TestPieces(TestCase):
         dhval = self.piece_group.merge(FakeBoard(), self.piece3)
         self.assertEquals(dhval, len2hval(3) - len2hval(2))
         self.assertEquals(self.piece_group.get_length(), 3)
-        self.assertEquals(self.piece_group.hval, len2hval(3))
+        self.assertEquals(self.piece_group.get_hval(), len2hval(3))
 
     def test_piece_group_merge_dual(self):
         # cannot test merge without board? simple.
@@ -81,10 +81,10 @@ class TestPieces(TestCase):
                     if p.x == x and p.y == y:
                         return p
         dhval = merge_dual(FakeBoard(), self.piece2, self.piece1)
-        self.assertEquals(self.piece1.groups.get_length(), 1)
-        self.assertEquals(len(self.piece1.groups[0]), 3)
+        self.assertEquals(len(self.piece1.groups), 1)
+        self.assertEquals(self.piece1.groups[0].get_length(), 3)
         self.assertEquals(dhval, len2hval(3))
-        self.assertEquals(self.piece1.groups[0].hval, len2hval(3))
+        self.assertEquals(self.piece1.groups[0].get_hval(), len2hval(3))
 
     def test_piece_group_merge_group(self):
         self.piece_group.add(self.piece1)
