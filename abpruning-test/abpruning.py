@@ -19,13 +19,18 @@ class ObjSpace(object):
         self.nb_children = nb_children
         self.magnitude = 10 ** 6
         self.node_class = node_class
+        self.next_node_id = 0
         self.root = None
 
     def gen_rand_value(self):
-        return random() * self.magnitude
+        return (random() - 0.5) * self.magnitude
+
+    def gen_node_id(self):
+        self.next_node_id += 1
+        return self.next_node_id
 
     def make_node(self):
-        return self.node_class(self.gen_rand_value())
+        return self.node_class(self, self.gen_rand_value())
 
     def populate(self):
         self.root = self.make_node()
@@ -44,64 +49,95 @@ class ObjSpace(object):
         self.expansion_count += 1
 
 class Node(object):
-    def __init__(self, value):
+    def __init__(self, space, value):
         self.children = []
         self.value = value
+        self.nid = space.gen_node_id()
+        self.parent = None
+
+    def to_string(self):
+        return '<node(%d) %s>' % (self.nid, self.value)
 
     def put(self, child):
         self.children.append(child)
+        child.parent = self
 
     def get_value(self, space):
         """ Hook to record this.
         """
         space.record_expansion()
-        return self.value
+        sum_up = 0
+        while self:
+            sum_up += self.value
+            self = self.parent
+        return sum_up
 
 class Future(object):
     def __init__(self, space, tree, player):
         self.space = space
         self.tree = tree
         self.player = player
+        self.future = None
+
+    def to_string(self):
+        return '<future value=%s>' % self.get_value()
+
+    def get_value(self):
+        return self.tree.get_value(self.space)
+
+    def get_leaf(self):
+        while self.future:
+            self = self.future
+        return self
 
     def minimax(self, depth, player):
         if depth == 0:
-            return self.tree.get_value(self.space)
+            return self.get_value()
         elif player is self.player: # max
-            curr_max = -(1 << 31)
+            curr_max = -(1 << 61)
             for child in self.tree.children:
                 future = Future(self.space, child, self.player)
                 hval = future.minimax(depth - 1, player.get_next())
                 if hval > curr_max:
                     curr_max = hval
+                    self.future = future
             return curr_max
         else: # min
-            curr_min = 1 << 31
+            curr_min = 1 << 61
             for child in self.tree.children:
                 future = Future(self.space, child, self.player)
                 hval = future.minimax(depth - 1, player.get_next())
                 if hval < curr_min:
                     curr_min = hval
+                    self.future = future
             return curr_min
 
 
     def alphabeta(self, depth, alpha, beta, player):
         if depth == 0:
-            return self.tree.get_value(self.space)
+            return self.get_value()
         elif player is self.player: # max
             for child in self.tree.children:
                 future = Future(self.space, child, self.player)
-                alpha = max(alpha, future.alphabeta(depth - 1, alpha, beta,
-                                                    player.get_next()))
+                future_value = future.alphabeta(depth - 1, alpha, beta,
+                                                player.get_next())
+                if future_value > alpha:
+                    alpha = future_value
+                    self.future = future
                 if beta <= alpha:
                     break
             return alpha
         else: # min
             for child in self.tree.children:
                 future = Future(self.space, child, self.player)
-                beta = min(beta, future.alphabeta(depth - 1, alpha, beta,
-                                                  player.get_next()))
+                future_value = future.alphabeta(depth - 1, alpha, beta,
+                                                player.get_next())
+                if future_value < beta:
+                    beta = future_value
+                    self.future = future
                 if beta <= alpha:
                     break
+            self.future = future
             return beta
 
 class Player(object):
@@ -144,14 +180,18 @@ def main(argv):
     space.expansion_count = 0
     future_ab = Future(space, space.root, player_one)
     ab_start = time()
-    ab_value = future_ab.alphabeta(depth, -(1 << 31), (1 << 31), player_one)
+    ab_value = future_ab.alphabeta(depth, -(1 << 61), (1 << 61), player_one)
     ab_time = time() - ab_start
     ab_count = space.expansion_count
 
     print '[Naive] value => %s, count => %s' % (naive_value, naive_count)
     print '[Naive] time-used => %s' % naive_time
+    print '[Naive] leaf => %s' % future_naive.get_leaf().to_string()
+
+    # XXX: sometimes the value of future_ab is larger than that of naive..
     print '[Prune] value => %s, count => %s' % (ab_value, ab_count)
     print '[Prune] time-used => %s' % ab_time
+    print '[Naive] leaf => %s' % future_ab.get_leaf().to_string()
 
 if __name__ == '__main__':
     import sys
