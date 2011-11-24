@@ -12,10 +12,15 @@ def main(argv):
         for _ in xrange(20):
             future = Future(board, player)
             hval = future.naive_minimax(4, player) # minimax
+            #hval = future.alphabeta(4, -(1 << 31), (1 << 31), player) # w/prune
             (x, y) = future.move
             board.put_at(x, y, player)
             visualize_board(board)
             visualize_stat(board, player, x, y, hval)
+            # test for winner
+            if board.piece_groups[player.pid][5]:
+                print 'player %s wins' % player.name
+                break
             player = player.get_next()
     except KeyboardInterrupt:
         pass
