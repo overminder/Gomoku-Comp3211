@@ -21,6 +21,17 @@
     to look ahead, without doing cleanups.
 """
 
+# Only for those that are not totally blocked.
+#          0x 1x 2x 3x  4x  5x     6x      7x       8x
+HVALTAB = [0, 0, 4, 15, 35, 99999, 999999, 9999999, 99999999]
+# for 2(2x) -> 2(3x) but not 3x->4x, 2(3x - 2x) > 4x - 3x
+
+HVALTAB2 = [
+    [0, 0, 8, 600, 9999, 99999, 999999, 9999999, 99999999], # blockade 0
+    [0, 0, 4, 15,  600,  99999, 999999, 9999999, 99999999], # blockade 1
+    [0, 0, 0,  0,    0,  99999, 999999, 9999999, 99999999], # blockade 2
+]
+
 class Piece(object):
     def __init__(self, x, y, owner):
         self.x = x
@@ -31,10 +42,6 @@ class Piece(object):
     def __repr__(self):
         return '<piece (%s %s %s) %s>' % (self.x, self.y, self.owner,
                                           self.groups)
-
-#          0x 1x 2x 3x  4x  5x     6x      7x       8x
-HVALTAB = [0, 0, 4, 15, 35, 99999, 999999, 9999999, 99999999]
-# for 2(2x) -> 2(3x) but not 3x->4x, 2(3x - 2x) > 4x - 3x
 
 class PieceGroup(object):
 
@@ -63,6 +70,22 @@ class PieceGroup(object):
                 min_y = pc.y
         return min_y
 
+    def get_max_x(self):
+        # pypy work around..
+        max_x = self.pieces[0].x
+        for pc in self.pieces:
+            if pc.x > max_x:
+                max_x = pc.x
+        return max_x
+
+    def get_max_y(self):
+        # pypy work around..
+        max_y = self.pieces[0].y
+        for pc in self.pieces:
+            if pc.y > max_y:
+                max_y = pc.y
+        return max_y
+
     def get_owner(self):
         return self.pieces[0].owner
 
@@ -83,6 +106,10 @@ class PieceGroup(object):
 
     def is_superset_of(self, group):
         raise NotImplementedError
+
+    def heuristic_eval(self, board):
+        raise NotImplementedError
+
 
 class GroupWithChangeInX(PieceGroup):
     """ Those three groups (\\) (-) (/) can share the same remove method. """
@@ -162,6 +189,22 @@ class DiagonalUp(GroupWithChangeInX):
             )
         return False
 
+    def heuristic_eval(self, board):
+        blockage = 0
+        self_len = self.get_length()
+        min_x = self.get_min_x()
+        max_y = self.get_max_y()
+
+        left_pt = (min_x - 1, max_y + 1)
+        if not board.pos_is_valid(*left_pt) or board.get_at(*left_pt):
+            blockage += 1
+
+        rite_pt = (min_x + self_len, max_y + self_len)
+        if not board.pos_is_valid(*rite_pt) or board.get_at(*rite_pt):
+            blockage += 1
+        return HVALTAB2[blockage][self_len]
+
+
 class DiagonalDown(GroupWithChangeInX):
     ' \ '
     def __init__(self):
@@ -213,6 +256,22 @@ class DiagonalDown(GroupWithChangeInX):
             )
         return False
 
+    def heuristic_eval(self, board):
+        blockage = 0
+        self_len = self.get_length()
+        min_x = self.get_min_x()
+        min_y = self.get_min_y()
+
+        left_pt = (min_x - 1, min_y - 1)
+        if not board.pos_is_valid(*left_pt) or board.get_at(*left_pt):
+            blockage += 1
+
+        rite_pt = (min_x + self_len, min_y + self_len)
+        if not board.pos_is_valid(*rite_pt) or board.get_at(*rite_pt):
+            blockage += 1
+        return HVALTAB2[blockage][self_len]
+
+
 class Horizontal(GroupWithChangeInX):
     ' - '
     def __init__(self):
@@ -262,6 +321,22 @@ class Horizontal(GroupWithChangeInX):
                     other_min_x + the_other.get_length()
             )
         return False
+
+    def heuristic_eval(self, board):
+        blockage = 0
+        self_len = self.get_length()
+        min_x = self.get_min_x()
+        my_y = self.get_min_y()
+
+        left_pt = (min_x - 1, my_y)
+        if not board.pos_is_valid(*left_pt) or board.get_at(*left_pt):
+            blockage += 1
+
+        rite_pt = (min_x + self_len, my_y)
+        if not board.pos_is_valid(*rite_pt) or board.get_at(*rite_pt):
+            blockage += 1
+        return HVALTAB2[blockage][self_len]
+
 
 class GroupWithChangeInY(PieceGroup):
     """ This group (|) has a different remove method. """
@@ -340,6 +415,21 @@ class Vertical(GroupWithChangeInY):
                     other_min_y + the_other.get_length()
             )
         return False
+
+    def heuristic_eval(self, board):
+        blockage = 0
+        self_len = self.get_length()
+        my_x = self.get_min_x()
+        min_y = self.get_min_y()
+
+        upper_pt = (my_x, min_y - 1)
+        if not board.pos_is_valid(*upper_pt) or board.get_at(*upper_pt):
+            blockage += 1
+
+        lower_pt = (my_x, min_y + self_len)
+        if not board.pos_is_valid(*lower_pt) or board.get_at(*lower_pt):
+            blockage += 1
+        return HVALTAB2[blockage][self_len]
 
 def merge_dual(board, new, old):
     owner = new.owner

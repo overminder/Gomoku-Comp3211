@@ -16,18 +16,32 @@ class Future(object):
         self.move = None
 
     def heuristic_eval(self):
-        self_hval = self.board.get_hval(self.player.pid)
-        other_hvals = [self.board.get_hval(pid)
-                       for pid in xrange(PLAYER_COUNT)
-                       if pid != self.player.pid]
-        other_hval = 0
-        for hval in other_hvals:
-            other_hval += hval
-        return self_hval - 2 * other_hval
+        # XXX: using different marking scheme on self/enemy players?
+
+        # evaluating the max player's heuristic value.
+        self_hval = 0
+        self_group_man = self.board.get_piece_groups()[self.player.pid]
+        for piece_groups in self_group_man.get_groups():
+            for piece_group in piece_groups:
+                self_hval += piece_group.heuristic_eval(self.board)
+
+        # evaluating the sum of the enemy players' heuristic values.
+        enemy_hvals = 0
+        for pid, group_man in enumerate(self.board.get_piece_groups()):
+            if pid == self.player.pid:
+                continue
+            for piece_groups in group_man.get_groups():
+                for piece_group in piece_groups:
+                    enemy_hvals += piece_group.heuristic_eval(self.board)
+
+        return self_hval - 2 * enemy_hvals
 
     def alphabeta(self, depth, alpha, beta, mover):
         if depth == 0:
-            # base case -- just get the heuristic value
+            # leaf reached -- just get the heuristic value
+            return self.heuristic_eval()
+        elif self.board.get_piece_groups()[mover.get_prev().pid].count_of(5):
+            # ending case -- someone is winning here.
             return self.heuristic_eval()
         elif mover is self.player: # max move
             saved_pmoves = self.board.get_possible_moves()

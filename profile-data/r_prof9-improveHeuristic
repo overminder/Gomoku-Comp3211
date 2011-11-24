@@ -1,0 +1,1064 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 10.06      0.33     0.33 10267563     0.00     0.00  pypy_g_DiagonalUp_heuristic_eval
+  9.45      0.64     0.31  2743679     0.00     0.00  pypy_g_Future_heuristic_eval
+  9.45      0.95     0.31  2904820     0.00     0.00  pypy_g_Board_find_mergeable_neighbours
+  7.62      1.20     0.25  2645219     0.00     0.00  pypy_g_merge_dual
+  7.01      1.43     0.23  9570899     0.00     0.00  pypy_g_Vertical_heuristic_eval
+  6.71      1.65     0.22  9501871     0.00     0.00  pypy_g_Horizontal_heuristic_eval
+  5.79      1.84     0.19  8564377     0.00     0.00  pypy_g_DiagonalDown_heuristic_eval
+  5.18      2.01     0.17  1872992     0.00     0.00  pypy_g_GroupWithChangeInX_remove
+  4.57      2.16     0.15  2904820     0.00     0.00  pypy_g_Board_add_possible_move
+  4.57      2.31     0.15       20     0.01     0.16  pypy_g_Future_alphabeta
+  4.27      2.45     0.14  2904820     0.00     0.00  pypy_g_Board_put_at
+  3.35      2.56     0.11  2904799     0.00     0.00  pypy_g_Board_del_at
+  2.74      2.65     0.09   693704     0.00     0.00  pypy_g_GroupWithChangeInY_remove
+  2.44      2.73     0.08  5064768     0.00     0.00  pypy_g__ll_list_resize_really__listPtr_Signed_3
+  2.13      2.80     0.07  2904799     0.00     0.00  pypy_g_SmallSet_make_copy
+  2.13      2.87     0.07   131420     0.00     0.00  pypy_g_DiagonalUp_merge
+  1.83      2.93     0.06  8710880     0.00     0.00  pypy_g_ll_arraycopy__arrayPtr_arrayPtr_Signed_Signed_Si_1
+  1.83      2.99     0.06   222796     0.00     0.00  pypy_g_Vertical_merge
+  1.83      3.05     0.06   193967     0.00     0.00  pypy_g_Horizontal_merge
+  1.22      3.09     0.04  8712515     0.00     0.00  pypy_g_MiniMarkGC_writebarrier_before_copy
+  1.22      3.13     0.04  8426247     0.00     0.00  pypy_g_ll_delitem_nonneg__dum_nocheckConst_listPtr_Sign
+  1.22      3.17     0.04  3891131     0.00     0.00  pypy_g_Board_add_piece_group
+  0.91      3.20     0.03  8426247     0.00     0.00  pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign_2
+  0.61      3.22     0.02   579823     0.00     0.00  pypy_g_PieceGroup_disband
+  0.61      3.24     0.02   459524     0.00     0.00  pypy_g_DiagonalUp_is_superset_of
+  0.30      3.25     0.01  4129633     0.00     0.00  pypy_g_stack_check___
+  0.30      3.26     0.01   677192     0.00     0.00  pypy_g_Horizontal_is_superset_of
+  0.30      3.27     0.01                             pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign_1
+  0.30      3.28     0.01                             pypy_g_ll_pop_zero__dum_nocheckConst_listPtr
+  0.00      3.28     0.00   666623     0.00     0.00  pypy_g_Vertical_is_superset_of
+  0.00      3.28     0.00   363984     0.00     0.00  pypy_g_DiagonalDown_is_superset_of
+  0.00      3.28     0.00   142053     0.00     0.00  pypy_g_instantiate_pieces_Horizontal
+  0.00      3.28     0.00   141124     0.00     0.00  pypy_g_instantiate_pieces_Vertical
+  0.00      3.28     0.00   118713     0.00     0.00  pypy_g_trace___trace_drag_out
+  0.00      3.28     0.00   112238     0.00     0.00  pypy_g_instantiate_pieces_DiagonalUp
+  0.00      3.28     0.00   110141     0.00     0.00  pypy_g_DiagonalDown_merge
+  0.00      3.28     0.00   105902     0.00     0.00  pypy_g_instantiate_pieces_DiagonalDown
+  0.00      3.28     0.00    73916     0.00     0.00  pypy_g_ArenaCollection_malloc
+  0.00      3.28     0.00    40105     0.00     0.00  pypy_g_remember_young_pointer_from_array2
+  0.00      3.28     0.00    24156     0.00     0.00  pypy_g_MiniMarkGC__trace_drag_out1
+  0.00      3.28     0.00     8159     0.00     0.00  pypy_g_GCBase__get_size_for_typeid
+  0.00      3.28     0.00     4820     0.00     0.00  pypy_g_remember_young_pointer
+  0.00      3.28     0.00     2441     0.00     0.00  pypy_g__ll_list_resize_really__listPtr_Signed_1
+  0.00      3.28     0.00     2434     0.00     0.00  pypy_debug_start
+  0.00      3.28     0.00     2434     0.00     0.00  pypy_debug_stop
+  0.00      3.28     0.00     1656     0.00     0.00  pypy_g__ll_list_resize_really__listPtr_Signed
+  0.00      3.28     0.00     1635     0.00     0.00  pypy_g_ll_arraycopy__arrayPtr_arrayPtr_Signed_Signed_Si
+  0.00      3.28     0.00     1215     0.00     0.00  pypy_g_MiniMarkGC_collect_cardrefs_to_nursery
+  0.00      3.28     0.00     1215     0.00     0.00  pypy_g_MiniMarkGC_debug_rotate_nursery
+  0.00      3.28     0.00     1215     0.00     0.00  pypy_g_MiniMarkGC_minor_collection
+  0.00      3.28     0.00     1215     0.00     0.00  pypy_g_default_walk_stack_root
+  0.00      3.28     0.00     1215     0.00     0.00  pypy_g_walk_roots
+  0.00      3.28     0.00     1214     0.00     0.00  pypy_g_MiniMarkGC_collect_and_reserve
+  0.00      3.28     0.00      510     0.00     0.00  op_llong_mul_ovf
+  0.00      3.28     0.00      501     0.00     0.00  pypy_g_ll_int2dec__Signed
+  0.00      3.28     0.00      501     0.00     0.00  pypy_g_ll_join_strs__v34___simple_call__function_ll
+  0.00      3.28     0.00      497     0.00     0.00  PyObject_Malloc
+  0.00      3.28     0.00      474     0.00     0.00  PyObject_Free
+  0.00      3.28     0.00      474     0.00     0.00  pypy_g__ll_malloc_varsize_no_length__Signed_Signed_Sign
+  0.00      3.28     0.00      460     0.00     0.00  pypy_g_MiniMarkGC_can_move
+  0.00      3.28     0.00      460     0.00     0.00  pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign
+  0.00      3.28     0.00      460     0.00     0.00  pypy_g_ccall_write__INT_arrayPtr_Unsigned
+  0.00      3.28     0.00      460     0.00     0.00  pypy_g_get_nonmovingbuffer
+  0.00      3.28     0.00      460     0.00     0.00  pypy_g_ll_os_ll_os_write
+  0.00      3.28     0.00      460     0.00     0.00  pypy_g_rpython_print_item
+  0.00      3.28     0.00      460     0.00     0.00  pypy_g_rpython_print_newline
+  0.00      3.28     0.00      460     0.00     0.00  pypy_g_write__INT_arrayPtr_Unsigned_star_3
+  0.00      3.28     0.00      381     0.00     0.00  pypy_g_ll_join_strs__v18___simple_call__function_ll
+  0.00      3.28     0.00      220     0.00     0.00  pypy_g_ll_strconcat__rpy_stringPtr_rpy_stringPtr
+  0.00      3.28     0.00      180     0.00     0.00  pypy_g_ll_stritem_nonneg__rpy_stringPtr_Signed
+  0.00      3.28     0.00       75     0.00     0.00  pypy_g_ll_rangenext_up__rangePtr_Signed
+  0.00      3.28     0.00       41     0.00     0.00  pypy_g_ll_strlen__rpy_stringPtr
+  0.00      3.28     0.00       40     0.00     0.00  pypy_g_ll_join__rpy_stringPtr_Signed_arrayPtr
+  0.00      3.28     0.00       25     0.00     0.00  pypy_g_ll_newrange__Ptr_GcStruct_rangeLlT_Signed_Signed
+  0.00      3.28     0.00       25     0.00     0.00  pypy_g_ll_rangeiter__Ptr_GcStruct_rangeLlT_rangePtr
+  0.00      3.28     0.00       23     0.00     0.00  pypy_g_ll_dict_lookup__v117___simple_call__function_l
+  0.00      3.28     0.00       20     0.00     0.00  pypy_g_visualize_board
+  0.00      3.28     0.00       20     0.00     0.00  pypy_g_visualize_stat
+  0.00      3.28     0.00       10     0.00     0.00  pypy_g_str2charp
+  0.00      3.28     0.00        7     0.00     0.00  pypy_g__read_float_and_factor_from_env
+  0.00      3.28     0.00        7     0.00     0.00  pypy_g_ccall_getenv__arrayPtr
+  0.00      3.28     0.00        7     0.00     0.00  pypy_g_ll_os_ll_os_getenv
+  0.00      3.28     0.00        6     0.00     0.00  pypy_g_ArenaCollection_allocate_new_arena
+  0.00      3.28     0.00        6     0.00     0.00  pypy_g_ll_correct_int_mod__Signed_Signed
+  0.00      3.28     0.00        6     0.00     0.00  pypy_g_mallocstr__Signed
+  0.00      3.28     0.00        5     0.00     0.00  pypy_g_RPyExceptionOccurred
+  0.00      3.28     0.00        5     0.00     0.00  pypy_g_RPyRaiseException
+  0.00      3.28     0.00        5     0.00     0.00  pypy_g__skipspace
+  0.00      3.28     0.00        5     0.00     0.00  pypy_g_ll_find__LLHelpersConst_rpy_stringPtr_rpy_string
+  0.00      3.28     0.00        4     0.00     0.00  pypy_g_ll_int__rpy_stringPtr_Signed
+  0.00      3.28     0.00        4     0.00     0.00  pypy_g_ll_stringslice_startstop__rpy_stringPtr_Signed_S
+  0.00      3.28     0.00        3     0.00     0.00  pypy_g_RPyString_New__Signed
+  0.00      3.28     0.00        3     0.00     0.00  pypy_g__RPyListOfString_SetItem__listPtr_Signed_rpy_str
+  0.00      3.28     0.00        3     0.00     0.00  pypy_g_ccall_read__INT_arrayPtr_Unsigned
+  0.00      3.28     0.00        3     0.00     0.00  pypy_g_ll_os_ll_os_read
+  0.00      3.28     0.00        3     0.00     0.00  pypy_g_ll_setitem_nonneg__dum_nocheckConst_listPtr_Sign
+  0.00      3.28     0.00        3     0.00     0.00  pypy_g_read__Signed_arrayPtr_Signed_star_3
+  0.00      3.28     0.00        3     0.00     0.00  pypy_g_str_from_buffer
+  0.00      3.28     0.00        2     0.00     0.00  pypy_g_MiniMarkGC_allocate_nursery
+  0.00      3.28     0.00        2     0.00     0.00  pypy_g_PieceGroupManager___init__
+  0.00      3.28     0.00        2     0.00     0.00  pypy_g_ccall_open__arrayPtr_INT_INT
+  0.00      3.28     0.00        2     0.00     0.00  pypy_g_ll_os_ll_os_close
+  0.00      3.28     0.00        2     0.00     0.00  pypy_g_ll_os_ll_os_open
+  0.00      3.28     0.00        1     0.00     0.00  LL_stack_too_big_slowpath
+  0.00      3.28     0.00        1     0.00     0.00  _PyPy_dg_strtod
+  0.00      3.28     0.00        1     0.00     0.00  pypy_debug_open
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_Board___init__
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_MiniMarkGC_post_setup
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_MiniMarkGC_setup
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g__PyPy_dg_strtod__arrayPtr_arrayPtr_star_2
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g__RPyListOfString_New__Signed
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_frameworkgc_setup
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_get_L2cache_linux2
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_get_total_memory_linux
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_ll_append__listPtr_rpy_stringPtr
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_ll_float__rpy_stringPtr
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_ll_items__listPtr
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_ll_join_strs_look_inside_iff__Signed_arrayPtr
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_ll_length__listPtr
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_ll_malloc_varsize__Signed_Signed_Signed_Signed
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_ll_newdict_size__Struct_DICTLlT_Signed
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_ll_newemptylist__GcStruct_listLlT
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_ll_newlist__GcStruct_listLlT_Signed
+  0.00      3.28     0.00        1     0.00     3.26  pypy_g_main
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_make_chess_space
+  0.00      3.28     0.00        1     0.00     0.00  pypy_g_strtod
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+ 
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this 
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 0.30% of 3.28 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     99.4    0.00    3.26                 pypy_main_function [1]
+                0.00    3.26       1/1           pypy_g_main [2]
+                0.00    0.00       1/1           pypy_g_frameworkgc_setup [38]
+                0.00    0.00       5/5           pypy_g_RPyExceptionOccurred [92]
+                0.00    0.00       3/6           pypy_g_mallocstr__Signed [91]
+                0.00    0.00       3/3           pypy_g_RPyString_New__Signed [98]
+                0.00    0.00       3/3           pypy_g_ll_setitem_nonneg__dum_nocheckConst_listPtr_Sign [102]
+                0.00    0.00       3/3           pypy_g__RPyListOfString_SetItem__listPtr_Signed_rpy_str [99]
+                0.00    0.00       1/1           pypy_g_ll_newlist__GcStruct_listLlT_Signed [124]
+                0.00    0.00       1/1           pypy_g__RPyListOfString_New__Signed [115]
+                0.00    0.00       1/1           pypy_g_MiniMarkGC_post_setup [113]
+-----------------------------------------------
+                0.00    3.26       1/1           pypy_main_function [1]
+[2]     99.4    0.00    3.26       1         pypy_g_main [2]
+                0.15    3.11      20/20          pypy_g_Future_alphabeta [3]
+                0.00    0.00      21/2904820     pypy_g_Board_put_at [5]
+                0.00    0.00      20/20          pypy_g_visualize_board [35]
+                0.00    0.00      20/20          pypy_g_visualize_stat [36]
+                0.00    0.00       2/4           pypy_g_ll_int__rpy_stringPtr_Signed [96]
+                0.00    0.00       1/1           pypy_g_Board___init__ [112]
+-----------------------------------------------
+                             2904799             pypy_g_Future_alphabeta [3]
+                0.15    3.11      20/20          pypy_g_main [2]
+[3]     99.4    0.15    3.11      20+2904799 pypy_g_Future_alphabeta [3]
+                0.31    0.97 2743679/2743679     pypy_g_Future_heuristic_eval [4]
+                0.14    1.12 2904799/2904820     pypy_g_Board_put_at [5]
+                0.11    0.38 2904799/2904799     pypy_g_Board_del_at [7]
+                0.07    0.00 2904799/2904799     pypy_g_SmallSet_make_copy [19]
+                0.01    0.00 2904799/4129633     pypy_g_stack_check___ [28]
+                0.00    0.00    4300/4820        pypy_g_remember_young_pointer [52]
+                0.00    0.00      65/1214        pypy_g_MiniMarkGC_collect_and_reserve [61]
+                             2904799             pypy_g_Future_alphabeta [3]
+-----------------------------------------------
+                0.31    0.97 2743679/2743679     pypy_g_Future_alphabeta [3]
+[4]     39.0    0.31    0.97 2743679         pypy_g_Future_heuristic_eval [4]
+                0.33    0.00 10267563/10267563     pypy_g_DiagonalUp_heuristic_eval [9]
+                0.23    0.00 9570899/9570899     pypy_g_Vertical_heuristic_eval [11]
+                0.22    0.00 9501871/9501871     pypy_g_Horizontal_heuristic_eval [12]
+                0.19    0.00 8564377/8564377     pypy_g_DiagonalDown_heuristic_eval [13]
+-----------------------------------------------
+                0.00    0.00      21/2904820     pypy_g_main [2]
+                0.14    1.12 2904799/2904820     pypy_g_Future_alphabeta [3]
+[5]     38.5    0.14    1.12 2904820         pypy_g_Board_put_at [5]
+                0.25    0.38 2645219/2645219     pypy_g_merge_dual [6]
+                0.31    0.03 2904820/2904820     pypy_g_Board_find_mergeable_neighbours [8]
+                0.15    0.00 2904820/2904820     pypy_g_Board_add_possible_move [14]
+                0.00    0.00   12681/40105       pypy_g_remember_young_pointer_from_array2 [49]
+                0.00    0.00     120/1214        pypy_g_MiniMarkGC_collect_and_reserve [61]
+                0.00    0.00      50/4820        pypy_g_remember_young_pointer [52]
+-----------------------------------------------
+                             1138563             pypy_g_merge_dual [6]
+                0.25    0.38 2645219/2645219     pypy_g_Board_put_at [5]
+[6]     19.2    0.25    0.38 2645219+1138563 pypy_g_merge_dual [6]
+                0.07    0.00  131420/131420      pypy_g_DiagonalUp_merge [18]
+                0.07    0.00 4548973/5064768     pypy_g__ll_list_resize_really__listPtr_Signed_3 [17]
+                0.06    0.01  193967/193967      pypy_g_Horizontal_merge [20]
+                0.06    0.01  222796/222796      pypy_g_Vertical_merge [21]
+                0.02    0.01  507484/579823      pypy_g_PieceGroup_disband [25]
+                0.03    0.00 2645219/3891131     pypy_g_Board_add_piece_group [22]
+                0.02    0.00  435273/459524      pypy_g_DiagonalUp_is_superset_of [27]
+                0.01    0.00  585757/677192      pypy_g_Horizontal_is_superset_of [29]
+                0.00    0.00  658324/8710880     pypy_g_ll_arraycopy__arrayPtr_arrayPtr_Signed_Signed_Si_1 [16]
+                0.00    0.00  110141/110141      pypy_g_DiagonalDown_merge [32]
+                0.00    0.00 1138563/4129633     pypy_g_stack_check___ [28]
+                0.00    0.00  637626/666623      pypy_g_Vertical_is_superset_of [41]
+                0.00    0.00  324172/363984      pypy_g_DiagonalDown_is_superset_of [42]
+                0.00    0.00   13791/40105       pypy_g_remember_young_pointer_from_array2 [49]
+                0.00    0.00     145/1214        pypy_g_MiniMarkGC_collect_and_reserve [61]
+                0.00    0.00      36/4820        pypy_g_remember_young_pointer [52]
+                             1138563             pypy_g_merge_dual [6]
+-----------------------------------------------
+                0.11    0.38 2904799/2904799     pypy_g_Future_alphabeta [3]
+[7]     14.9    0.11    0.38 2904799         pypy_g_Board_del_at [7]
+                0.17    0.09 1872992/1872992     pypy_g_GroupWithChangeInX_remove [10]
+                0.09    0.03  693704/693704      pypy_g_GroupWithChangeInY_remove [15]
+                0.00    0.00  259904/3891131     pypy_g_Board_add_piece_group [22]
+-----------------------------------------------
+                0.31    0.03 2904820/2904820     pypy_g_Board_put_at [5]
+[8]     10.5    0.31    0.03 2904820         pypy_g_Board_find_mergeable_neighbours [8]
+                0.02    0.01 2904820/8710880     pypy_g_ll_arraycopy__arrayPtr_arrayPtr_Signed_Signed_Si_1 [16]
+                0.00    0.00     180/1214        pypy_g_MiniMarkGC_collect_and_reserve [61]
+-----------------------------------------------
+                0.33    0.00 10267563/10267563     pypy_g_Future_heuristic_eval [4]
+[9]     10.1    0.33    0.00 10267563         pypy_g_DiagonalUp_heuristic_eval [9]
+-----------------------------------------------
+                0.17    0.09 1872992/1872992     pypy_g_Board_del_at [7]
+[10]     7.8    0.17    0.09 1872992         pypy_g_GroupWithChangeInX_remove [10]
+                0.03    0.02 3745984/8710880     pypy_g_ll_arraycopy__arrayPtr_arrayPtr_Signed_Signed_Si_1 [16]
+                0.02    0.00 4201518/8426247     pypy_g_ll_delitem_nonneg__dum_nocheckConst_listPtr_Sign [24]
+                0.01    0.00 4201518/8426247     pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign_2 [26]
+                0.01    0.00  360193/5064768     pypy_g__ll_list_resize_really__listPtr_Signed_3 [17]
+                0.00    0.00  213614/3891131     pypy_g_Board_add_piece_group [22]
+                0.00    0.00  142053/142053      pypy_g_instantiate_pieces_Horizontal [43]
+                0.00    0.00  112238/112238      pypy_g_instantiate_pieces_DiagonalUp [46]
+                0.00    0.00  105902/105902      pypy_g_instantiate_pieces_DiagonalDown [47]
+                0.00    0.00     577/40105       pypy_g_remember_young_pointer_from_array2 [49]
+                0.00    0.00     140/1214        pypy_g_MiniMarkGC_collect_and_reserve [61]
+                0.00    0.00       5/4820        pypy_g_remember_young_pointer [52]
+-----------------------------------------------
+                0.23    0.00 9570899/9570899     pypy_g_Future_heuristic_eval [4]
+[11]     7.0    0.23    0.00 9570899         pypy_g_Vertical_heuristic_eval [11]
+-----------------------------------------------
+                0.22    0.00 9501871/9501871     pypy_g_Future_heuristic_eval [4]
+[12]     6.7    0.22    0.00 9501871         pypy_g_Horizontal_heuristic_eval [12]
+-----------------------------------------------
+                0.19    0.00 8564377/8564377     pypy_g_Future_heuristic_eval [4]
+[13]     5.8    0.19    0.00 8564377         pypy_g_DiagonalDown_heuristic_eval [13]
+-----------------------------------------------
+                0.15    0.00 2904820/2904820     pypy_g_Board_put_at [5]
+[14]     4.6    0.15    0.00 2904820         pypy_g_Board_add_possible_move [14]
+-----------------------------------------------
+                0.09    0.03  693704/693704      pypy_g_Board_del_at [7]
+[15]     3.7    0.09    0.03  693704         pypy_g_GroupWithChangeInY_remove [15]
+                0.01    0.01 1387408/8710880     pypy_g_ll_arraycopy__arrayPtr_arrayPtr_Signed_Signed_Si_1 [16]
+                0.01    0.00 1575893/8426247     pypy_g_ll_delitem_nonneg__dum_nocheckConst_listPtr_Sign [24]
+                0.01    0.00 1575893/8426247     pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign_2 [26]
+                0.00    0.00  141124/5064768     pypy_g__ll_list_resize_really__listPtr_Signed_3 [17]
+                0.00    0.00   27799/3891131     pypy_g_Board_add_piece_group [22]
+                0.00    0.00  141124/141124      pypy_g_instantiate_pieces_Vertical [44]
+                0.00    0.00     206/40105       pypy_g_remember_young_pointer_from_array2 [49]
+                0.00    0.00      54/1214        pypy_g_MiniMarkGC_collect_and_reserve [61]
+-----------------------------------------------
+                0.00    0.00   14344/8710880     pypy_g__ll_list_resize_really__listPtr_Signed_3 [17]
+                0.00    0.00  658324/8710880     pypy_g_merge_dual [6]
+                0.01    0.01 1387408/8710880     pypy_g_GroupWithChangeInY_remove [15]
+                0.02    0.01 2904820/8710880     pypy_g_Board_find_mergeable_neighbours [8]
+                0.03    0.02 3745984/8710880     pypy_g_GroupWithChangeInX_remove [10]
+[16]     3.0    0.06    0.04 8710880         pypy_g_ll_arraycopy__arrayPtr_arrayPtr_Signed_Signed_Si_1 [16]
+                0.04    0.00 8710880/8712515     pypy_g_MiniMarkGC_writebarrier_before_copy [23]
+-----------------------------------------------
+                0.00    0.00       1/5064768     pypy_g_PieceGroup_disband [25]
+                0.00    0.00      14/5064768     pypy_g_Board_add_piece_group [22]
+                0.00    0.00     682/5064768     pypy_g_Vertical_merge [21]
+                0.00    0.00    1261/5064768     pypy_g_DiagonalUp_merge [18]
+                0.00    0.00    1563/5064768     pypy_g_DiagonalDown_merge [32]
+                0.00    0.00   10957/5064768     pypy_g_Horizontal_merge [20]
+                0.00    0.00  141124/5064768     pypy_g_GroupWithChangeInY_remove [15]
+                0.01    0.00  360193/5064768     pypy_g_GroupWithChangeInX_remove [10]
+                0.07    0.00 4548973/5064768     pypy_g_merge_dual [6]
+[17]     2.4    0.08    0.00 5064768         pypy_g__ll_list_resize_really__listPtr_Signed_3 [17]
+                0.00    0.00   14344/8710880     pypy_g_ll_arraycopy__arrayPtr_arrayPtr_Signed_Signed_Si_1 [16]
+                0.00    0.00     408/4820        pypy_g_remember_young_pointer [52]
+                0.00    0.00     147/1214        pypy_g_MiniMarkGC_collect_and_reserve [61]
+-----------------------------------------------
+                               12963             pypy_g_DiagonalUp_merge [18]
+                0.07    0.00  131420/131420      pypy_g_merge_dual [6]
+[18]     2.3    0.07    0.00  131420+12963   pypy_g_DiagonalUp_merge [18]
+                0.00    0.00  144383/3891131     pypy_g_Board_add_piece_group [22]
+                0.00    0.00   24251/459524      pypy_g_DiagonalUp_is_superset_of [27]
+                0.00    0.00   11703/579823      pypy_g_PieceGroup_disband [25]
+                0.00    0.00  144383/8426247     pypy_g_ll_delitem_nonneg__dum_nocheckConst_listPtr_Sign [24]
+                0.00    0.00  144383/8426247     pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign_2 [26]
+                0.00    0.00   12963/4129633     pypy_g_stack_check___ [28]
+                0.00    0.00    1261/5064768     pypy_g__ll_list_resize_really__listPtr_Signed_3 [17]
+                0.00    0.00    1748/40105       pypy_g_remember_young_pointer_from_array2 [49]
+                               12963             pypy_g_DiagonalUp_merge [18]
+-----------------------------------------------
+                0.07    0.00 2904799/2904799     pypy_g_Future_alphabeta [3]
+[19]     2.1    0.07    0.00 2904799         pypy_g_SmallSet_make_copy [19]
+                0.00    0.00     357/1214        pypy_g_MiniMarkGC_collect_and_reserve [61]
+-----------------------------------------------
+                               38830             pypy_g_Horizontal_merge [20]
+                0.06    0.01  193967/193967      pypy_g_merge_dual [6]
+[20]     2.1    0.06    0.01  193967+38830   pypy_g_Horizontal_merge [20]
+                0.00    0.00  232797/3891131     pypy_g_Board_add_piece_group [22]
+                0.00    0.00   28087/579823      pypy_g_PieceGroup_disband [25]
+                0.00    0.00   91435/677192      pypy_g_Horizontal_is_superset_of [29]
+                0.00    0.00  232797/8426247     pypy_g_ll_delitem_nonneg__dum_nocheckConst_listPtr_Sign [24]
+                0.00    0.00  232797/8426247     pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign_2 [26]
+                0.00    0.00   10957/5064768     pypy_g__ll_list_resize_really__listPtr_Signed_3 [17]
+                0.00    0.00   38830/4129633     pypy_g_stack_check___ [28]
+                0.00    0.00    1085/40105       pypy_g_remember_young_pointer_from_array2 [49]
+                               38830             pypy_g_Horizontal_merge [20]
+-----------------------------------------------
+                               15254             pypy_g_Vertical_merge [21]
+                0.06    0.01  222796/222796      pypy_g_merge_dual [6]
+[21]     2.0    0.06    0.01  222796+15254   pypy_g_Vertical_merge [21]
+                0.00    0.00  238050/3891131     pypy_g_Board_add_piece_group [22]
+                0.00    0.00  238050/8426247     pypy_g_ll_delitem_nonneg__dum_nocheckConst_listPtr_Sign [24]
+                0.00    0.00   14804/579823      pypy_g_PieceGroup_disband [25]
+                0.00    0.00  238050/8426247     pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign_2 [26]
+                0.00    0.00   15254/4129633     pypy_g_stack_check___ [28]
+                0.00    0.00     682/5064768     pypy_g__ll_list_resize_really__listPtr_Signed_3 [17]
+                0.00    0.00   28997/666623      pypy_g_Vertical_is_superset_of [41]
+                0.00    0.00    1846/40105       pypy_g_remember_young_pointer_from_array2 [49]
+                               15254             pypy_g_Vertical_merge [21]
+-----------------------------------------------
+                0.00    0.00   27799/3891131     pypy_g_GroupWithChangeInY_remove [15]
+                0.00    0.00  129365/3891131     pypy_g_DiagonalDown_merge [32]
+                0.00    0.00  144383/3891131     pypy_g_DiagonalUp_merge [18]
+                0.00    0.00  213614/3891131     pypy_g_GroupWithChangeInX_remove [10]
+                0.00    0.00  232797/3891131     pypy_g_Horizontal_merge [20]
+                0.00    0.00  238050/3891131     pypy_g_Vertical_merge [21]
+                0.00    0.00  259904/3891131     pypy_g_Board_del_at [7]
+                0.03    0.00 2645219/3891131     pypy_g_merge_dual [6]
+[22]     1.2    0.04    0.00 3891131         pypy_g_Board_add_piece_group [22]
+                0.00    0.00      14/5064768     pypy_g__ll_list_resize_really__listPtr_Signed_3 [17]
+                0.00    0.00    6647/40105       pypy_g_remember_young_pointer_from_array2 [49]
+-----------------------------------------------
+                0.00    0.00    1635/8712515     pypy_g_ll_arraycopy__arrayPtr_arrayPtr_Signed_Signed_Si [33]
+                0.04    0.00 8710880/8712515     pypy_g_ll_arraycopy__arrayPtr_arrayPtr_Signed_Signed_Si_1 [16]
+[23]     1.2    0.04    0.00 8712515         pypy_g_MiniMarkGC_writebarrier_before_copy [23]
+-----------------------------------------------
+                0.00    0.00  129365/8426247     pypy_g_DiagonalDown_merge [32]
+                0.00    0.00  144383/8426247     pypy_g_DiagonalUp_merge [18]
+                0.00    0.00  232797/8426247     pypy_g_Horizontal_merge [20]
+                0.00    0.00  238050/8426247     pypy_g_Vertical_merge [21]
+                0.01    0.00 1575893/8426247     pypy_g_GroupWithChangeInY_remove [15]
+                0.01    0.00 1904241/8426247     pypy_g_PieceGroup_disband [25]
+                0.02    0.00 4201518/8426247     pypy_g_GroupWithChangeInX_remove [10]
+[24]     1.2    0.04    0.00 8426247         pypy_g_ll_delitem_nonneg__dum_nocheckConst_listPtr_Sign [24]
+                0.00    0.00     234/40105       pypy_g_remember_young_pointer_from_array2 [49]
+-----------------------------------------------
+                0.00    0.00   11703/579823      pypy_g_DiagonalUp_merge [18]
+                0.00    0.00   14804/579823      pypy_g_Vertical_merge [21]
+                0.00    0.00   17745/579823      pypy_g_DiagonalDown_merge [32]
+                0.00    0.00   28087/579823      pypy_g_Horizontal_merge [20]
+                0.02    0.01  507484/579823      pypy_g_merge_dual [6]
+[25]     1.1    0.02    0.02  579823         pypy_g_PieceGroup_disband [25]
+                0.01    0.00 1904241/8426247     pypy_g_ll_delitem_nonneg__dum_nocheckConst_listPtr_Sign [24]
+                0.01    0.00 1904241/8426247     pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign_2 [26]
+                0.00    0.00       1/5064768     pypy_g__ll_list_resize_really__listPtr_Signed_3 [17]
+-----------------------------------------------
+                0.00    0.00  129365/8426247     pypy_g_DiagonalDown_merge [32]
+                0.00    0.00  144383/8426247     pypy_g_DiagonalUp_merge [18]
+                0.00    0.00  232797/8426247     pypy_g_Horizontal_merge [20]
+                0.00    0.00  238050/8426247     pypy_g_Vertical_merge [21]
+                0.01    0.00 1575893/8426247     pypy_g_GroupWithChangeInY_remove [15]
+                0.01    0.00 1904241/8426247     pypy_g_PieceGroup_disband [25]
+                0.01    0.00 4201518/8426247     pypy_g_GroupWithChangeInX_remove [10]
+[26]     0.9    0.03    0.00 8426247         pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign_2 [26]
+-----------------------------------------------
+                0.00    0.00   24251/459524      pypy_g_DiagonalUp_merge [18]
+                0.02    0.00  435273/459524      pypy_g_merge_dual [6]
+[27]     0.6    0.02    0.00  459524         pypy_g_DiagonalUp_is_superset_of [27]
+-----------------------------------------------
+                0.00    0.00   12963/4129633     pypy_g_DiagonalUp_merge [18]
+                0.00    0.00   15254/4129633     pypy_g_Vertical_merge [21]
+                0.00    0.00   19224/4129633     pypy_g_DiagonalDown_merge [32]
+                0.00    0.00   38830/4129633     pypy_g_Horizontal_merge [20]
+                0.00    0.00 1138563/4129633     pypy_g_merge_dual [6]
+                0.01    0.00 2904799/4129633     pypy_g_Future_alphabeta [3]
+[28]     0.3    0.01    0.00 4129633         pypy_g_stack_check___ [28]
+                0.00    0.00       1/1           LL_stack_too_big_slowpath [110]
+-----------------------------------------------
+                0.00    0.00   91435/677192      pypy_g_Horizontal_merge [20]
+                0.01    0.00  585757/677192      pypy_g_merge_dual [6]
+[29]     0.3    0.01    0.00  677192         pypy_g_Horizontal_is_superset_of [29]
+-----------------------------------------------
+                                                 <spontaneous>
+[30]     0.3    0.01    0.00                 pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign_1 [30]
+-----------------------------------------------
+                                                 <spontaneous>
+[31]     0.3    0.01    0.00                 pypy_g_ll_pop_zero__dum_nocheckConst_listPtr [31]
+-----------------------------------------------
+                               19224             pypy_g_DiagonalDown_merge [32]
+                0.00    0.00  110141/110141      pypy_g_merge_dual [6]
+[32]     0.1    0.00    0.00  110141+19224   pypy_g_DiagonalDown_merge [32]
+                0.00    0.00  129365/3891131     pypy_g_Board_add_piece_group [22]
+                0.00    0.00   17745/579823      pypy_g_PieceGroup_disband [25]
+                0.00    0.00  129365/8426247     pypy_g_ll_delitem_nonneg__dum_nocheckConst_listPtr_Sign [24]
+                0.00    0.00  129365/8426247     pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign_2 [26]
+                0.00    0.00   19224/4129633     pypy_g_stack_check___ [28]
+                0.00    0.00    1563/5064768     pypy_g__ll_list_resize_really__listPtr_Signed_3 [17]
+                0.00    0.00   39812/363984      pypy_g_DiagonalDown_is_superset_of [42]
+                0.00    0.00    1290/40105       pypy_g_remember_young_pointer_from_array2 [49]
+                               19224             pypy_g_DiagonalDown_merge [32]
+-----------------------------------------------
+                0.00    0.00      35/1635        pypy_g_visualize_stat [36]
+                0.00    0.00    1600/1635        pypy_g__ll_list_resize_really__listPtr_Signed [34]
+[33]     0.0    0.00    0.00    1635         pypy_g_ll_arraycopy__arrayPtr_arrayPtr_Signed_Signed_Si [33]
+                0.00    0.00    1635/8712515     pypy_g_MiniMarkGC_writebarrier_before_copy [23]
+-----------------------------------------------
+                0.00    0.00       1/1656        pypy_g_ll_append__listPtr_rpy_stringPtr [40]
+                0.00    0.00      55/1656        pypy_g_visualize_stat [36]
+                0.00    0.00    1600/1656        pypy_g_visualize_board [35]
+[34]     0.0    0.00    0.00    1656         pypy_g__ll_list_resize_really__listPtr_Signed [34]
+                0.00    0.00    1600/1635        pypy_g_ll_arraycopy__arrayPtr_arrayPtr_Signed_Signed_Si [33]
+-----------------------------------------------
+                0.00    0.00      20/20          pypy_g_main [2]
+[35]     0.0    0.00    0.00      20         pypy_g_visualize_board [35]
+                0.00    0.00    1600/1656        pypy_g__ll_list_resize_really__listPtr_Signed [34]
+                0.00    0.00     400/460         pypy_g_ll_os_ll_os_write [72]
+                0.00    0.00     400/460         pypy_g_rpython_print_newline [74]
+                0.00    0.00     400/460         pypy_g_rpython_print_item [73]
+                0.00    0.00     380/501         pypy_g_ll_int2dec__Signed [63]
+                0.00    0.00     380/501         pypy_g_ll_join_strs__v34___simple_call__function_ll [64]
+                0.00    0.00     380/381         pypy_g_ll_join_strs__v18___simple_call__function_ll [76]
+                0.00    0.00     220/220         pypy_g_ll_strconcat__rpy_stringPtr_rpy_stringPtr [77]
+-----------------------------------------------
+                0.00    0.00      20/20          pypy_g_main [2]
+[36]     0.0    0.00    0.00      20         pypy_g_visualize_stat [36]
+                0.00    0.00      55/1656        pypy_g__ll_list_resize_really__listPtr_Signed [34]
+                0.00    0.00      35/1635        pypy_g_ll_arraycopy__arrayPtr_arrayPtr_Signed_Signed_Si [33]
+                0.00    0.00     121/501         pypy_g_ll_int2dec__Signed [63]
+                0.00    0.00     121/501         pypy_g_ll_join_strs__v34___simple_call__function_ll [64]
+                0.00    0.00      60/460         pypy_g_ll_os_ll_os_write [72]
+                0.00    0.00      60/460         pypy_g_rpython_print_newline [74]
+                0.00    0.00      60/460         pypy_g_rpython_print_item [73]
+                0.00    0.00      40/40          pypy_g_ll_join__rpy_stringPtr_Signed_arrayPtr [81]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_frameworkgc_setup [38]
+[37]     0.0    0.00    0.00       1         pypy_g_MiniMarkGC_setup [37]
+                0.00    0.00       1/1           pypy_g_get_L2cache_linux2 [39]
+                0.00    0.00      14/497         PyObject_Malloc [65]
+                0.00    0.00       6/7           pypy_g__read_float_and_factor_from_env [86]
+                0.00    0.00       2/2434        pypy_debug_stop [55]
+                0.00    0.00       1/1           pypy_g_ll_newdict_size__Struct_DICTLlT_Signed [122]
+                0.00    0.00       1/2           pypy_g_MiniMarkGC_allocate_nursery [105]
+                0.00    0.00       1/1215        pypy_g_MiniMarkGC_minor_collection [58]
+                0.00    0.00       1/1           pypy_g_get_total_memory_linux [116]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_main_function [1]
+[38]     0.0    0.00    0.00       1         pypy_g_frameworkgc_setup [38]
+                0.00    0.00       1/1           pypy_g_MiniMarkGC_setup [37]
+                0.00    0.00       1/2434        pypy_debug_stop [55]
+                0.00    0.00       1/2           pypy_g_MiniMarkGC_allocate_nursery [105]
+                0.00    0.00       1/497         PyObject_Malloc [65]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_MiniMarkGC_setup [37]
+[39]     0.0    0.00    0.00       1         pypy_g_get_L2cache_linux2 [39]
+                0.00    0.00       1/1           pypy_g_ll_append__listPtr_rpy_stringPtr [40]
+                0.00    0.00      18/180         pypy_g_ll_stritem_nonneg__rpy_stringPtr_Signed [78]
+                0.00    0.00      11/41          pypy_g_ll_strlen__rpy_stringPtr [80]
+                0.00    0.00       6/23          pypy_g_ll_dict_lookup__v117___simple_call__function_l [84]
+                0.00    0.00       5/5           pypy_g_ll_find__LLHelpersConst_rpy_stringPtr_rpy_string [95]
+                0.00    0.00       4/5           pypy_g__skipspace [94]
+                0.00    0.00       2/3           pypy_g_ll_os_ll_os_read [101]
+                0.00    0.00       2/4           pypy_g_ll_stringslice_startstop__rpy_stringPtr_Signed_S [97]
+                0.00    0.00       2/4           pypy_g_ll_int__rpy_stringPtr_Signed [96]
+                0.00    0.00       1/2434        pypy_debug_start [54]
+                0.00    0.00       1/2           pypy_g_ll_os_ll_os_open [109]
+                0.00    0.00       1/2434        pypy_debug_stop [55]
+                0.00    0.00       1/1           pypy_g_ll_newemptylist__GcStruct_listLlT [123]
+                0.00    0.00       1/2           pypy_g_ll_os_ll_os_close [108]
+                0.00    0.00       1/1           pypy_g_ll_length__listPtr [120]
+                0.00    0.00       1/381         pypy_g_ll_join_strs__v18___simple_call__function_ll [76]
+                0.00    0.00       1/1           pypy_g_ll_join_strs_look_inside_iff__Signed_arrayPtr [119]
+                0.00    0.00       1/1           pypy_g_ll_items__listPtr [118]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_get_L2cache_linux2 [39]
+[40]     0.0    0.00    0.00       1         pypy_g_ll_append__listPtr_rpy_stringPtr [40]
+                0.00    0.00       1/1656        pypy_g__ll_list_resize_really__listPtr_Signed [34]
+-----------------------------------------------
+                0.00    0.00   28997/666623      pypy_g_Vertical_merge [21]
+                0.00    0.00  637626/666623      pypy_g_merge_dual [6]
+[41]     0.0    0.00    0.00  666623         pypy_g_Vertical_is_superset_of [41]
+-----------------------------------------------
+                0.00    0.00   39812/363984      pypy_g_DiagonalDown_merge [32]
+                0.00    0.00  324172/363984      pypy_g_merge_dual [6]
+[42]     0.0    0.00    0.00  363984         pypy_g_DiagonalDown_is_superset_of [42]
+-----------------------------------------------
+                0.00    0.00  142053/142053      pypy_g_GroupWithChangeInX_remove [10]
+[43]     0.0    0.00    0.00  142053         pypy_g_instantiate_pieces_Horizontal [43]
+                0.00    0.00       1/1214        pypy_g_MiniMarkGC_collect_and_reserve [61]
+-----------------------------------------------
+                0.00    0.00  141124/141124      pypy_g_GroupWithChangeInY_remove [15]
+[44]     0.0    0.00    0.00  141124         pypy_g_instantiate_pieces_Vertical [44]
+                0.00    0.00       2/1214        pypy_g_MiniMarkGC_collect_and_reserve [61]
+-----------------------------------------------
+                0.00    0.00  118713/118713      pypy_g_MiniMarkGC_minor_collection [58]
+[45]     0.0    0.00    0.00  118713         pypy_g_trace___trace_drag_out [45]
+                0.00    0.00   65757/73916       pypy_g_ArenaCollection_malloc [48]
+-----------------------------------------------
+                0.00    0.00  112238/112238      pypy_g_GroupWithChangeInX_remove [10]
+[46]     0.0    0.00    0.00  112238         pypy_g_instantiate_pieces_DiagonalUp [46]
+                0.00    0.00       1/1214        pypy_g_MiniMarkGC_collect_and_reserve [61]
+-----------------------------------------------
+                0.00    0.00  105902/105902      pypy_g_GroupWithChangeInX_remove [10]
+[47]     0.0    0.00    0.00  105902         pypy_g_instantiate_pieces_DiagonalDown [47]
+                0.00    0.00       1/1214        pypy_g_MiniMarkGC_collect_and_reserve [61]
+-----------------------------------------------
+                0.00    0.00    8159/73916       pypy_g_MiniMarkGC__trace_drag_out1 [50]
+                0.00    0.00   65757/73916       pypy_g_trace___trace_drag_out [45]
+[48]     0.0    0.00    0.00   73916         pypy_g_ArenaCollection_malloc [48]
+                0.00    0.00       6/6           pypy_g_ArenaCollection_allocate_new_arena [89]
+-----------------------------------------------
+                0.00    0.00     206/40105       pypy_g_GroupWithChangeInY_remove [15]
+                0.00    0.00     234/40105       pypy_g_ll_delitem_nonneg__dum_nocheckConst_listPtr_Sign [24]
+                0.00    0.00     577/40105       pypy_g_GroupWithChangeInX_remove [10]
+                0.00    0.00    1085/40105       pypy_g_Horizontal_merge [20]
+                0.00    0.00    1290/40105       pypy_g_DiagonalDown_merge [32]
+                0.00    0.00    1748/40105       pypy_g_DiagonalUp_merge [18]
+                0.00    0.00    1846/40105       pypy_g_Vertical_merge [21]
+                0.00    0.00    6647/40105       pypy_g_Board_add_piece_group [22]
+                0.00    0.00   12681/40105       pypy_g_Board_put_at [5]
+                0.00    0.00   13791/40105       pypy_g_merge_dual [6]
+[49]     0.0    0.00    0.00   40105         pypy_g_remember_young_pointer_from_array2 [49]
+-----------------------------------------------
+                0.00    0.00   24156/24156       pypy_g_default_walk_stack_root [59]
+[50]     0.0    0.00    0.00   24156         pypy_g_MiniMarkGC__trace_drag_out1 [50]
+                0.00    0.00    8159/8159        pypy_g_GCBase__get_size_for_typeid [51]
+                0.00    0.00    8159/73916       pypy_g_ArenaCollection_malloc [48]
+-----------------------------------------------
+                0.00    0.00    8159/8159        pypy_g_MiniMarkGC__trace_drag_out1 [50]
+[51]     0.0    0.00    0.00    8159         pypy_g_GCBase__get_size_for_typeid [51]
+-----------------------------------------------
+                0.00    0.00       5/4820        pypy_g_GroupWithChangeInX_remove [10]
+                0.00    0.00      21/4820        pypy_g__ll_list_resize_really__listPtr_Signed_1 [53]
+                0.00    0.00      36/4820        pypy_g_merge_dual [6]
+                0.00    0.00      50/4820        pypy_g_Board_put_at [5]
+                0.00    0.00     408/4820        pypy_g__ll_list_resize_really__listPtr_Signed_3 [17]
+                0.00    0.00    4300/4820        pypy_g_Future_alphabeta [3]
+[52]     0.0    0.00    0.00    4820         pypy_g_remember_young_pointer [52]
+-----------------------------------------------
+                0.00    0.00     460/2441        pypy_g_rpython_print_newline [74]
+                0.00    0.00    1981/2441        pypy_g_rpython_print_item [73]
+[53]     0.0    0.00    0.00    2441         pypy_g__ll_list_resize_really__listPtr_Signed_1 [53]
+                0.00    0.00      21/4820        pypy_g_remember_young_pointer [52]
+                0.00    0.00       1/1214        pypy_g_MiniMarkGC_collect_and_reserve [61]
+-----------------------------------------------
+                0.00    0.00       1/2434        pypy_g_get_L2cache_linux2 [39]
+                0.00    0.00       1/2434        pypy_g_get_total_memory_linux [116]
+                0.00    0.00       2/2434        pypy_g_MiniMarkGC_allocate_nursery [105]
+                0.00    0.00    2430/2434        pypy_g_MiniMarkGC_minor_collection [58]
+[54]     0.0    0.00    0.00    2434         pypy_debug_start [54]
+                0.00    0.00       1/1           pypy_debug_open [111]
+-----------------------------------------------
+                0.00    0.00       1/2434        pypy_g_get_L2cache_linux2 [39]
+                0.00    0.00       1/2434        pypy_g_get_total_memory_linux [116]
+                0.00    0.00       1/2434        pypy_g_frameworkgc_setup [38]
+                0.00    0.00       2/2434        pypy_g_MiniMarkGC_setup [37]
+                0.00    0.00    1214/2434        pypy_g_MiniMarkGC_collect_and_reserve [61]
+                0.00    0.00    1215/2434        pypy_g_MiniMarkGC_minor_collection [58]
+[55]     0.0    0.00    0.00    2434         pypy_debug_stop [55]
+-----------------------------------------------
+                0.00    0.00    1215/1215        pypy_g_MiniMarkGC_minor_collection [58]
+[56]     0.0    0.00    0.00    1215         pypy_g_MiniMarkGC_collect_cardrefs_to_nursery [56]
+-----------------------------------------------
+                0.00    0.00    1215/1215        pypy_g_MiniMarkGC_minor_collection [58]
+[57]     0.0    0.00    0.00    1215         pypy_g_MiniMarkGC_debug_rotate_nursery [57]
+-----------------------------------------------
+                0.00    0.00       1/1215        pypy_g_MiniMarkGC_setup [37]
+                0.00    0.00    1214/1215        pypy_g_MiniMarkGC_collect_and_reserve [61]
+[58]     0.0    0.00    0.00    1215         pypy_g_MiniMarkGC_minor_collection [58]
+                0.00    0.00  118713/118713      pypy_g_trace___trace_drag_out [45]
+                0.00    0.00    2430/2434        pypy_debug_start [54]
+                0.00    0.00    1215/1215        pypy_g_default_walk_stack_root [59]
+                0.00    0.00    1215/1215        pypy_g_walk_roots [60]
+                0.00    0.00    1215/1215        pypy_g_MiniMarkGC_collect_cardrefs_to_nursery [56]
+                0.00    0.00    1215/2434        pypy_debug_stop [55]
+                0.00    0.00    1215/1215        pypy_g_MiniMarkGC_debug_rotate_nursery [57]
+-----------------------------------------------
+                0.00    0.00    1215/1215        pypy_g_MiniMarkGC_minor_collection [58]
+[59]     0.0    0.00    0.00    1215         pypy_g_default_walk_stack_root [59]
+                0.00    0.00   24156/24156       pypy_g_MiniMarkGC__trace_drag_out1 [50]
+-----------------------------------------------
+                0.00    0.00    1215/1215        pypy_g_MiniMarkGC_minor_collection [58]
+[60]     0.0    0.00    0.00    1215         pypy_g_walk_roots [60]
+-----------------------------------------------
+                0.00    0.00       1/1214        pypy_g_instantiate_pieces_Horizontal [43]
+                0.00    0.00       1/1214        pypy_g_instantiate_pieces_DiagonalUp [46]
+                0.00    0.00       1/1214        pypy_g_instantiate_pieces_DiagonalDown [47]
+                0.00    0.00       1/1214        pypy_g__ll_list_resize_really__listPtr_Signed_1 [53]
+                0.00    0.00       2/1214        pypy_g_instantiate_pieces_Vertical [44]
+                0.00    0.00      54/1214        pypy_g_GroupWithChangeInY_remove [15]
+                0.00    0.00      65/1214        pypy_g_Future_alphabeta [3]
+                0.00    0.00     120/1214        pypy_g_Board_put_at [5]
+                0.00    0.00     140/1214        pypy_g_GroupWithChangeInX_remove [10]
+                0.00    0.00     145/1214        pypy_g_merge_dual [6]
+                0.00    0.00     147/1214        pypy_g__ll_list_resize_really__listPtr_Signed_3 [17]
+                0.00    0.00     180/1214        pypy_g_Board_find_mergeable_neighbours [8]
+                0.00    0.00     357/1214        pypy_g_SmallSet_make_copy [19]
+[61]     0.0    0.00    0.00    1214         pypy_g_MiniMarkGC_collect_and_reserve [61]
+                0.00    0.00    1214/2434        pypy_debug_stop [55]
+                0.00    0.00    1214/1215        pypy_g_MiniMarkGC_minor_collection [58]
+-----------------------------------------------
+                0.00    0.00       1/510         pypy_g_ll_malloc_varsize__Signed_Signed_Signed_Signed [121]
+                0.00    0.00      35/510         pypy_g_ll_join__rpy_stringPtr_Signed_arrayPtr [81]
+                0.00    0.00     474/510         pypy_g__ll_malloc_varsize_no_length__Signed_Signed_Sign [67]
+[62]     0.0    0.00    0.00     510         op_llong_mul_ovf [62]
+-----------------------------------------------
+                0.00    0.00     121/501         pypy_g_visualize_stat [36]
+                0.00    0.00     380/501         pypy_g_visualize_board [35]
+[63]     0.0    0.00    0.00     501         pypy_g_ll_int2dec__Signed [63]
+-----------------------------------------------
+                0.00    0.00     121/501         pypy_g_visualize_stat [36]
+                0.00    0.00     380/501         pypy_g_visualize_board [35]
+[64]     0.0    0.00    0.00     501         pypy_g_ll_join_strs__v34___simple_call__function_ll [64]
+-----------------------------------------------
+                0.00    0.00       1/497         pypy_g_frameworkgc_setup [38]
+                0.00    0.00       1/497         pypy_g_ll_malloc_varsize__Signed_Signed_Signed_Signed [121]
+                0.00    0.00       1/497         pypy_g_ll_newdict_size__Struct_DICTLlT_Signed [122]
+                0.00    0.00       6/497         pypy_g_ArenaCollection_allocate_new_arena [89]
+                0.00    0.00      14/497         pypy_g_MiniMarkGC_setup [37]
+                0.00    0.00     474/497         pypy_g__ll_malloc_varsize_no_length__Signed_Signed_Sign [67]
+[65]     0.0    0.00    0.00     497         PyObject_Malloc [65]
+-----------------------------------------------
+                0.00    0.00       2/474         pypy_g_ll_os_ll_os_open [109]
+                0.00    0.00       2/474         pypy_g_strtod [126]
+                0.00    0.00       3/474         pypy_g_ll_os_ll_os_read [101]
+                0.00    0.00       7/474         pypy_g_ll_os_ll_os_getenv [88]
+                0.00    0.00     460/474         pypy_g_ll_os_ll_os_write [72]
+[66]     0.0    0.00    0.00     474         PyObject_Free [66]
+-----------------------------------------------
+                0.00    0.00       1/474         pypy_g_strtod [126]
+                0.00    0.00       3/474         pypy_g_ll_os_ll_os_read [101]
+                0.00    0.00      10/474         pypy_g_str2charp [85]
+                0.00    0.00     460/474         pypy_g_get_nonmovingbuffer [71]
+[67]     0.0    0.00    0.00     474         pypy_g__ll_malloc_varsize_no_length__Signed_Signed_Sign [67]
+                0.00    0.00     474/510         op_llong_mul_ovf [62]
+                0.00    0.00     474/497         PyObject_Malloc [65]
+-----------------------------------------------
+                0.00    0.00     460/460         pypy_g_get_nonmovingbuffer [71]
+[68]     0.0    0.00    0.00     460         pypy_g_MiniMarkGC_can_move [68]
+-----------------------------------------------
+                0.00    0.00     460/460         pypy_g_rpython_print_newline [74]
+[69]     0.0    0.00    0.00     460         pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign [69]
+-----------------------------------------------
+                0.00    0.00     460/460         pypy_g_ll_os_ll_os_write [72]
+[70]     0.0    0.00    0.00     460         pypy_g_ccall_write__INT_arrayPtr_Unsigned [70]
+-----------------------------------------------
+                0.00    0.00     460/460         pypy_g_ll_os_ll_os_write [72]
+[71]     0.0    0.00    0.00     460         pypy_g_get_nonmovingbuffer [71]
+                0.00    0.00     460/460         pypy_g_MiniMarkGC_can_move [68]
+                0.00    0.00     460/474         pypy_g__ll_malloc_varsize_no_length__Signed_Signed_Sign [67]
+-----------------------------------------------
+                0.00    0.00      60/460         pypy_g_visualize_stat [36]
+                0.00    0.00     400/460         pypy_g_visualize_board [35]
+[72]     0.0    0.00    0.00     460         pypy_g_ll_os_ll_os_write [72]
+                0.00    0.00     460/460         pypy_g_get_nonmovingbuffer [71]
+                0.00    0.00     460/460         pypy_g_ccall_write__INT_arrayPtr_Unsigned [70]
+                0.00    0.00     460/460         pypy_g_write__INT_arrayPtr_Unsigned_star_3 [75]
+                0.00    0.00     460/474         PyObject_Free [66]
+-----------------------------------------------
+                0.00    0.00      60/460         pypy_g_visualize_stat [36]
+                0.00    0.00     400/460         pypy_g_visualize_board [35]
+[73]     0.0    0.00    0.00     460         pypy_g_rpython_print_item [73]
+                0.00    0.00    1981/2441        pypy_g__ll_list_resize_really__listPtr_Signed_1 [53]
+-----------------------------------------------
+                0.00    0.00      60/460         pypy_g_visualize_stat [36]
+                0.00    0.00     400/460         pypy_g_visualize_board [35]
+[74]     0.0    0.00    0.00     460         pypy_g_rpython_print_newline [74]
+                0.00    0.00     460/2441        pypy_g__ll_list_resize_really__listPtr_Signed_1 [53]
+                0.00    0.00     460/460         pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign [69]
+-----------------------------------------------
+                0.00    0.00     460/460         pypy_g_ll_os_ll_os_write [72]
+[75]     0.0    0.00    0.00     460         pypy_g_write__INT_arrayPtr_Unsigned_star_3 [75]
+-----------------------------------------------
+                0.00    0.00       1/381         pypy_g_get_L2cache_linux2 [39]
+                0.00    0.00     380/381         pypy_g_visualize_board [35]
+[76]     0.0    0.00    0.00     381         pypy_g_ll_join_strs__v18___simple_call__function_ll [76]
+-----------------------------------------------
+                0.00    0.00     220/220         pypy_g_visualize_board [35]
+[77]     0.0    0.00    0.00     220         pypy_g_ll_strconcat__rpy_stringPtr_rpy_stringPtr [77]
+-----------------------------------------------
+                0.00    0.00       2/180         pypy_g_ll_float__rpy_stringPtr [117]
+                0.00    0.00       8/180         pypy_g_get_total_memory_linux [116]
+                0.00    0.00      17/180         pypy_g__skipspace [94]
+                0.00    0.00      18/180         pypy_g_get_L2cache_linux2 [39]
+                0.00    0.00     135/180         pypy_g_str2charp [85]
+[78]     0.0    0.00    0.00     180         pypy_g_ll_stritem_nonneg__rpy_stringPtr_Signed [78]
+-----------------------------------------------
+                0.00    0.00      75/75          pypy_g_ll_find__LLHelpersConst_rpy_stringPtr_rpy_string [95]
+[79]     0.0    0.00    0.00      75         pypy_g_ll_rangenext_up__rangePtr_Signed [79]
+                0.00    0.00       5/5           pypy_g_RPyRaiseException [93]
+-----------------------------------------------
+                0.00    0.00       1/41          pypy_g_strtod [126]
+                0.00    0.00       1/41          pypy_g_ll_float__rpy_stringPtr [117]
+                0.00    0.00       8/41          pypy_g_get_total_memory_linux [116]
+                0.00    0.00      11/41          pypy_g_get_L2cache_linux2 [39]
+                0.00    0.00      20/41          pypy_g_str2charp [85]
+[80]     0.0    0.00    0.00      41         pypy_g_ll_strlen__rpy_stringPtr [80]
+-----------------------------------------------
+                0.00    0.00      40/40          pypy_g_visualize_stat [36]
+[81]     0.0    0.00    0.00      40         pypy_g_ll_join__rpy_stringPtr_Signed_arrayPtr [81]
+                0.00    0.00      35/510         op_llong_mul_ovf [62]
+-----------------------------------------------
+                0.00    0.00      25/25          pypy_g_ll_find__LLHelpersConst_rpy_stringPtr_rpy_string [95]
+[82]     0.0    0.00    0.00      25         pypy_g_ll_newrange__Ptr_GcStruct_rangeLlT_Signed_Signed [82]
+-----------------------------------------------
+                0.00    0.00      25/25          pypy_g_ll_find__LLHelpersConst_rpy_stringPtr_rpy_string [95]
+[83]     0.0    0.00    0.00      25         pypy_g_ll_rangeiter__Ptr_GcStruct_rangeLlT_rangePtr [83]
+-----------------------------------------------
+                0.00    0.00       6/23          pypy_g_get_L2cache_linux2 [39]
+                0.00    0.00      17/23          pypy_g__skipspace [94]
+[84]     0.0    0.00    0.00      23         pypy_g_ll_dict_lookup__v117___simple_call__function_l [84]
+-----------------------------------------------
+                0.00    0.00       1/10          pypy_g_strtod [126]
+                0.00    0.00       2/10          pypy_g_ll_os_ll_os_open [109]
+                0.00    0.00       7/10          pypy_g_ll_os_ll_os_getenv [88]
+[85]     0.0    0.00    0.00      10         pypy_g_str2charp [85]
+                0.00    0.00     135/180         pypy_g_ll_stritem_nonneg__rpy_stringPtr_Signed [78]
+                0.00    0.00      20/41          pypy_g_ll_strlen__rpy_stringPtr [80]
+                0.00    0.00      10/474         pypy_g__ll_malloc_varsize_no_length__Signed_Signed_Sign [67]
+-----------------------------------------------
+                0.00    0.00       1/7           pypy_g_MiniMarkGC_post_setup [113]
+                0.00    0.00       6/7           pypy_g_MiniMarkGC_setup [37]
+[86]     0.0    0.00    0.00       7         pypy_g__read_float_and_factor_from_env [86]
+                0.00    0.00       7/7           pypy_g_ll_os_ll_os_getenv [88]
+-----------------------------------------------
+                0.00    0.00       7/7           pypy_g_ll_os_ll_os_getenv [88]
+[87]     0.0    0.00    0.00       7         pypy_g_ccall_getenv__arrayPtr [87]
+-----------------------------------------------
+                0.00    0.00       7/7           pypy_g__read_float_and_factor_from_env [86]
+[88]     0.0    0.00    0.00       7         pypy_g_ll_os_ll_os_getenv [88]
+                0.00    0.00       7/10          pypy_g_str2charp [85]
+                0.00    0.00       7/7           pypy_g_ccall_getenv__arrayPtr [87]
+                0.00    0.00       7/474         PyObject_Free [66]
+-----------------------------------------------
+                0.00    0.00       6/6           pypy_g_ArenaCollection_malloc [48]
+[89]     0.0    0.00    0.00       6         pypy_g_ArenaCollection_allocate_new_arena [89]
+                0.00    0.00       6/497         PyObject_Malloc [65]
+                0.00    0.00       6/6           pypy_g_ll_correct_int_mod__Signed_Signed [90]
+-----------------------------------------------
+                0.00    0.00       6/6           pypy_g_ArenaCollection_allocate_new_arena [89]
+[90]     0.0    0.00    0.00       6         pypy_g_ll_correct_int_mod__Signed_Signed [90]
+-----------------------------------------------
+                0.00    0.00       3/6           pypy_main_function [1]
+                0.00    0.00       3/6           pypy_g_ll_stringslice_startstop__rpy_stringPtr_Signed_S [97]
+[91]     0.0    0.00    0.00       6         pypy_g_mallocstr__Signed [91]
+-----------------------------------------------
+                0.00    0.00       5/5           pypy_main_function [1]
+[92]     0.0    0.00    0.00       5         pypy_g_RPyExceptionOccurred [92]
+-----------------------------------------------
+                0.00    0.00       5/5           pypy_g_ll_rangenext_up__rangePtr_Signed [79]
+[93]     0.0    0.00    0.00       5         pypy_g_RPyRaiseException [93]
+-----------------------------------------------
+                0.00    0.00       1/5           pypy_g_get_total_memory_linux [116]
+                0.00    0.00       4/5           pypy_g_get_L2cache_linux2 [39]
+[94]     0.0    0.00    0.00       5         pypy_g__skipspace [94]
+                0.00    0.00      17/180         pypy_g_ll_stritem_nonneg__rpy_stringPtr_Signed [78]
+                0.00    0.00      17/23          pypy_g_ll_dict_lookup__v117___simple_call__function_l [84]
+-----------------------------------------------
+                0.00    0.00       5/5           pypy_g_get_L2cache_linux2 [39]
+[95]     0.0    0.00    0.00       5         pypy_g_ll_find__LLHelpersConst_rpy_stringPtr_rpy_string [95]
+                0.00    0.00      75/75          pypy_g_ll_rangenext_up__rangePtr_Signed [79]
+                0.00    0.00      25/25          pypy_g_ll_newrange__Ptr_GcStruct_rangeLlT_Signed_Signed [82]
+                0.00    0.00      25/25          pypy_g_ll_rangeiter__Ptr_GcStruct_rangeLlT_rangePtr [83]
+-----------------------------------------------
+                0.00    0.00       2/4           pypy_g_get_L2cache_linux2 [39]
+                0.00    0.00       2/4           pypy_g_main [2]
+[96]     0.0    0.00    0.00       4         pypy_g_ll_int__rpy_stringPtr_Signed [96]
+-----------------------------------------------
+                0.00    0.00       1/4           pypy_g_get_total_memory_linux [116]
+                0.00    0.00       1/4           pypy_g_ll_float__rpy_stringPtr [117]
+                0.00    0.00       2/4           pypy_g_get_L2cache_linux2 [39]
+[97]     0.0    0.00    0.00       4         pypy_g_ll_stringslice_startstop__rpy_stringPtr_Signed_S [97]
+                0.00    0.00       3/6           pypy_g_mallocstr__Signed [91]
+-----------------------------------------------
+                0.00    0.00       3/3           pypy_main_function [1]
+[98]     0.0    0.00    0.00       3         pypy_g_RPyString_New__Signed [98]
+-----------------------------------------------
+                0.00    0.00       3/3           pypy_main_function [1]
+[99]     0.0    0.00    0.00       3         pypy_g__RPyListOfString_SetItem__listPtr_Signed_rpy_str [99]
+-----------------------------------------------
+                0.00    0.00       3/3           pypy_g_ll_os_ll_os_read [101]
+[100]    0.0    0.00    0.00       3         pypy_g_ccall_read__INT_arrayPtr_Unsigned [100]
+-----------------------------------------------
+                0.00    0.00       1/3           pypy_g_get_total_memory_linux [116]
+                0.00    0.00       2/3           pypy_g_get_L2cache_linux2 [39]
+[101]    0.0    0.00    0.00       3         pypy_g_ll_os_ll_os_read [101]
+                0.00    0.00       3/474         pypy_g__ll_malloc_varsize_no_length__Signed_Signed_Sign [67]
+                0.00    0.00       3/3           pypy_g_ccall_read__INT_arrayPtr_Unsigned [100]
+                0.00    0.00       3/3           pypy_g_read__Signed_arrayPtr_Signed_star_3 [103]
+                0.00    0.00       3/3           pypy_g_str_from_buffer [104]
+                0.00    0.00       3/474         PyObject_Free [66]
+-----------------------------------------------
+                0.00    0.00       3/3           pypy_main_function [1]
+[102]    0.0    0.00    0.00       3         pypy_g_ll_setitem_nonneg__dum_nocheckConst_listPtr_Sign [102]
+-----------------------------------------------
+                0.00    0.00       3/3           pypy_g_ll_os_ll_os_read [101]
+[103]    0.0    0.00    0.00       3         pypy_g_read__Signed_arrayPtr_Signed_star_3 [103]
+-----------------------------------------------
+                0.00    0.00       3/3           pypy_g_ll_os_ll_os_read [101]
+[104]    0.0    0.00    0.00       3         pypy_g_str_from_buffer [104]
+-----------------------------------------------
+                0.00    0.00       1/2           pypy_g_MiniMarkGC_setup [37]
+                0.00    0.00       1/2           pypy_g_frameworkgc_setup [38]
+[105]    0.0    0.00    0.00       2         pypy_g_MiniMarkGC_allocate_nursery [105]
+                0.00    0.00       2/2434        pypy_debug_start [54]
+-----------------------------------------------
+                0.00    0.00       2/2           pypy_g_Board___init__ [112]
+[106]    0.0    0.00    0.00       2         pypy_g_PieceGroupManager___init__ [106]
+-----------------------------------------------
+                0.00    0.00       2/2           pypy_g_ll_os_ll_os_open [109]
+[107]    0.0    0.00    0.00       2         pypy_g_ccall_open__arrayPtr_INT_INT [107]
+-----------------------------------------------
+                0.00    0.00       1/2           pypy_g_get_L2cache_linux2 [39]
+                0.00    0.00       1/2           pypy_g_get_total_memory_linux [116]
+[108]    0.0    0.00    0.00       2         pypy_g_ll_os_ll_os_close [108]
+-----------------------------------------------
+                0.00    0.00       1/2           pypy_g_get_L2cache_linux2 [39]
+                0.00    0.00       1/2           pypy_g_get_total_memory_linux [116]
+[109]    0.0    0.00    0.00       2         pypy_g_ll_os_ll_os_open [109]
+                0.00    0.00       2/10          pypy_g_str2charp [85]
+                0.00    0.00       2/2           pypy_g_ccall_open__arrayPtr_INT_INT [107]
+                0.00    0.00       2/474         PyObject_Free [66]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_stack_check___ [28]
+[110]    0.0    0.00    0.00       1         LL_stack_too_big_slowpath [110]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_debug_start [54]
+[111]    0.0    0.00    0.00       1         pypy_debug_open [111]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_main [2]
+[112]    0.0    0.00    0.00       1         pypy_g_Board___init__ [112]
+                0.00    0.00       2/2           pypy_g_PieceGroupManager___init__ [106]
+                0.00    0.00       1/1           pypy_g_make_chess_space [125]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_main_function [1]
+[113]    0.0    0.00    0.00       1         pypy_g_MiniMarkGC_post_setup [113]
+                0.00    0.00       1/7           pypy_g__read_float_and_factor_from_env [86]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_strtod [126]
+[114]    0.0    0.00    0.00       1         pypy_g__PyPy_dg_strtod__arrayPtr_arrayPtr_star_2 [114]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_main_function [1]
+[115]    0.0    0.00    0.00       1         pypy_g__RPyListOfString_New__Signed [115]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_MiniMarkGC_setup [37]
+[116]    0.0    0.00    0.00       1         pypy_g_get_total_memory_linux [116]
+                0.00    0.00       8/41          pypy_g_ll_strlen__rpy_stringPtr [80]
+                0.00    0.00       8/180         pypy_g_ll_stritem_nonneg__rpy_stringPtr_Signed [78]
+                0.00    0.00       1/2434        pypy_debug_start [54]
+                0.00    0.00       1/2           pypy_g_ll_os_ll_os_open [109]
+                0.00    0.00       1/2434        pypy_debug_stop [55]
+                0.00    0.00       1/3           pypy_g_ll_os_ll_os_read [101]
+                0.00    0.00       1/2           pypy_g_ll_os_ll_os_close [108]
+                0.00    0.00       1/5           pypy_g__skipspace [94]
+                0.00    0.00       1/4           pypy_g_ll_stringslice_startstop__rpy_stringPtr_Signed_S [97]
+                0.00    0.00       1/1           pypy_g_strtod [126]
+                0.00    0.00       1/1           pypy_g_ll_float__rpy_stringPtr [117]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_get_total_memory_linux [116]
+[117]    0.0    0.00    0.00       1         pypy_g_ll_float__rpy_stringPtr [117]
+                0.00    0.00       2/180         pypy_g_ll_stritem_nonneg__rpy_stringPtr_Signed [78]
+                0.00    0.00       1/41          pypy_g_ll_strlen__rpy_stringPtr [80]
+                0.00    0.00       1/4           pypy_g_ll_stringslice_startstop__rpy_stringPtr_Signed_S [97]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_get_L2cache_linux2 [39]
+[118]    0.0    0.00    0.00       1         pypy_g_ll_items__listPtr [118]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_get_L2cache_linux2 [39]
+[119]    0.0    0.00    0.00       1         pypy_g_ll_join_strs_look_inside_iff__Signed_arrayPtr [119]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_get_L2cache_linux2 [39]
+[120]    0.0    0.00    0.00       1         pypy_g_ll_length__listPtr [120]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_ll_newdict_size__Struct_DICTLlT_Signed [122]
+[121]    0.0    0.00    0.00       1         pypy_g_ll_malloc_varsize__Signed_Signed_Signed_Signed [121]
+                0.00    0.00       1/510         op_llong_mul_ovf [62]
+                0.00    0.00       1/497         PyObject_Malloc [65]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_MiniMarkGC_setup [37]
+[122]    0.0    0.00    0.00       1         pypy_g_ll_newdict_size__Struct_DICTLlT_Signed [122]
+                0.00    0.00       1/497         PyObject_Malloc [65]
+                0.00    0.00       1/1           pypy_g_ll_malloc_varsize__Signed_Signed_Signed_Signed [121]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_get_L2cache_linux2 [39]
+[123]    0.0    0.00    0.00       1         pypy_g_ll_newemptylist__GcStruct_listLlT [123]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_main_function [1]
+[124]    0.0    0.00    0.00       1         pypy_g_ll_newlist__GcStruct_listLlT_Signed [124]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_Board___init__ [112]
+[125]    0.0    0.00    0.00       1         pypy_g_make_chess_space [125]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_get_total_memory_linux [116]
+[126]    0.0    0.00    0.00       1         pypy_g_strtod [126]
+                0.00    0.00       2/474         PyObject_Free [66]
+                0.00    0.00       1/474         pypy_g__ll_malloc_varsize_no_length__Signed_Signed_Sign [67]
+                0.00    0.00       1/10          pypy_g_str2charp [85]
+                0.00    0.00       1/1           _PyPy_dg_strtod [275]
+                0.00    0.00       1/1           pypy_g__PyPy_dg_strtod__arrayPtr_arrayPtr_star_2 [114]
+                0.00    0.00       1/41          pypy_g_ll_strlen__rpy_stringPtr [80]
+-----------------------------------------------
+                0.00    0.00       1/1           pypy_g_strtod [126]
+[275]    0.0    0.00    0.00       1         _PyPy_dg_strtod [275]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+
+Index by function name
+
+ [110] LL_stack_too_big_slowpath [92] pypy_g_RPyExceptionOccurred [118] pypy_g_ll_items__listPtr
+  [66] PyObject_Free          [93] pypy_g_RPyRaiseException [81] pypy_g_ll_join__rpy_stringPtr_Signed_arrayPtr
+  [65] PyObject_Malloc        [98] pypy_g_RPyString_New__Signed [76] pypy_g_ll_join_strs__v18___simple_call__function_ll
+ [275] _PyPy_dg_strtod        [19] pypy_g_SmallSet_make_copy [64] pypy_g_ll_join_strs__v34___simple_call__function_ll
+  [62] op_llong_mul_ovf       [11] pypy_g_Vertical_heuristic_eval [119] pypy_g_ll_join_strs_look_inside_iff__Signed_arrayPtr
+ [111] pypy_debug_open (debug_print.c) [41] pypy_g_Vertical_is_superset_of [120] pypy_g_ll_length__listPtr
+  [54] pypy_debug_start       [21] pypy_g_Vertical_merge [121] pypy_g_ll_malloc_varsize__Signed_Signed_Signed_Signed
+  [55] pypy_debug_stop       [114] pypy_g__PyPy_dg_strtod__arrayPtr_arrayPtr_star_2 [122] pypy_g_ll_newdict_size__Struct_DICTLlT_Signed
+  [89] pypy_g_ArenaCollection_allocate_new_arena [115] pypy_g__RPyListOfString_New__Signed [123] pypy_g_ll_newemptylist__GcStruct_listLlT
+  [48] pypy_g_ArenaCollection_malloc [99] pypy_g__RPyListOfString_SetItem__listPtr_Signed_rpy_str [124] pypy_g_ll_newlist__GcStruct_listLlT_Signed
+ [112] pypy_g_Board___init__  [69] pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign [82] pypy_g_ll_newrange__Ptr_GcStruct_rangeLlT_Signed_Signed
+  [22] pypy_g_Board_add_piece_group [30] pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign_1 [108] pypy_g_ll_os_ll_os_close
+  [14] pypy_g_Board_add_possible_move [26] pypy_g__ll_list_resize_le_look_inside_iff__listPtr_Sign_2 [88] pypy_g_ll_os_ll_os_getenv
+   [7] pypy_g_Board_del_at    [34] pypy_g__ll_list_resize_really__listPtr_Signed [109] pypy_g_ll_os_ll_os_open
+   [8] pypy_g_Board_find_mergeable_neighbours [53] pypy_g__ll_list_resize_really__listPtr_Signed_1 [101] pypy_g_ll_os_ll_os_read
+   [5] pypy_g_Board_put_at    [17] pypy_g__ll_list_resize_really__listPtr_Signed_3 [72] pypy_g_ll_os_ll_os_write
+  [13] pypy_g_DiagonalDown_heuristic_eval [67] pypy_g__ll_malloc_varsize_no_length__Signed_Signed_Sign [31] pypy_g_ll_pop_zero__dum_nocheckConst_listPtr
+  [42] pypy_g_DiagonalDown_is_superset_of [86] pypy_g__read_float_and_factor_from_env [83] pypy_g_ll_rangeiter__Ptr_GcStruct_rangeLlT_rangePtr
+  [32] pypy_g_DiagonalDown_merge [94] pypy_g__skipspace   [79] pypy_g_ll_rangenext_up__rangePtr_Signed
+   [9] pypy_g_DiagonalUp_heuristic_eval [87] pypy_g_ccall_getenv__arrayPtr [102] pypy_g_ll_setitem_nonneg__dum_nocheckConst_listPtr_Sign
+  [27] pypy_g_DiagonalUp_is_superset_of [107] pypy_g_ccall_open__arrayPtr_INT_INT [77] pypy_g_ll_strconcat__rpy_stringPtr_rpy_stringPtr
+  [18] pypy_g_DiagonalUp_merge [100] pypy_g_ccall_read__INT_arrayPtr_Unsigned [97] pypy_g_ll_stringslice_startstop__rpy_stringPtr_Signed_S
+   [3] pypy_g_Future_alphabeta [70] pypy_g_ccall_write__INT_arrayPtr_Unsigned [78] pypy_g_ll_stritem_nonneg__rpy_stringPtr_Signed
+   [4] pypy_g_Future_heuristic_eval [59] pypy_g_default_walk_stack_root [80] pypy_g_ll_strlen__rpy_stringPtr
+  [51] pypy_g_GCBase__get_size_for_typeid [38] pypy_g_frameworkgc_setup [2] pypy_g_main
+  [10] pypy_g_GroupWithChangeInX_remove [39] pypy_g_get_L2cache_linux2 [125] pypy_g_make_chess_space
+  [15] pypy_g_GroupWithChangeInY_remove [71] pypy_g_get_nonmovingbuffer [91] pypy_g_mallocstr__Signed
+  [12] pypy_g_Horizontal_heuristic_eval [116] pypy_g_get_total_memory_linux [6] pypy_g_merge_dual
+  [29] pypy_g_Horizontal_is_superset_of [47] pypy_g_instantiate_pieces_DiagonalDown [103] pypy_g_read__Signed_arrayPtr_Signed_star_3
+  [20] pypy_g_Horizontal_merge [46] pypy_g_instantiate_pieces_DiagonalUp [52] pypy_g_remember_young_pointer
+  [50] pypy_g_MiniMarkGC__trace_drag_out1 [43] pypy_g_instantiate_pieces_Horizontal [49] pypy_g_remember_young_pointer_from_array2
+ [105] pypy_g_MiniMarkGC_allocate_nursery [44] pypy_g_instantiate_pieces_Vertical [73] pypy_g_rpython_print_item
+  [68] pypy_g_MiniMarkGC_can_move [40] pypy_g_ll_append__listPtr_rpy_stringPtr [74] pypy_g_rpython_print_newline
+  [61] pypy_g_MiniMarkGC_collect_and_reserve [33] pypy_g_ll_arraycopy__arrayPtr_arrayPtr_Signed_Signed_Si [28] pypy_g_stack_check___
+  [56] pypy_g_MiniMarkGC_collect_cardrefs_to_nursery [16] pypy_g_ll_arraycopy__arrayPtr_arrayPtr_Signed_Signed_Si_1 [85] pypy_g_str2charp
+  [57] pypy_g_MiniMarkGC_debug_rotate_nursery [90] pypy_g_ll_correct_int_mod__Signed_Signed [104] pypy_g_str_from_buffer
+  [58] pypy_g_MiniMarkGC_minor_collection [24] pypy_g_ll_delitem_nonneg__dum_nocheckConst_listPtr_Sign [126] pypy_g_strtod
+ [113] pypy_g_MiniMarkGC_post_setup [84] pypy_g_ll_dict_lookup__v117___simple_call__function_l [45] pypy_g_trace___trace_drag_out
+  [37] pypy_g_MiniMarkGC_setup [95] pypy_g_ll_find__LLHelpersConst_rpy_stringPtr_rpy_string [35] pypy_g_visualize_board
+  [23] pypy_g_MiniMarkGC_writebarrier_before_copy [117] pypy_g_ll_float__rpy_stringPtr [36] pypy_g_visualize_stat
+ [106] pypy_g_PieceGroupManager___init__ [63] pypy_g_ll_int2dec__Signed [60] pypy_g_walk_roots
+  [25] pypy_g_PieceGroup_disband [96] pypy_g_ll_int__rpy_stringPtr_Signed [75] pypy_g_write__INT_arrayPtr_Unsigned_star_3

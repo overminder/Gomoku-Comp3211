@@ -141,7 +141,8 @@ class TestBoardModel_WithAddingInDiagonalUp(TestCase):
         self.board.put_at(x, y, p)
 
     def assert_hval_is(self, val, p=p1):
-        self.assertEquals(self.board.get_hval(p.pid), val)
+        raise NotImplementedError
+        #self.assertEquals(self.board.get_hval(p.pid), val)
 
     def assert_has_nb_groups(self, length, count, p=p1):
         self.assertEquals(self.board.piece_groups[p.pid].count_of(length),

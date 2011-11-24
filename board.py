@@ -43,13 +43,8 @@ class Board(object):
     def del_piece_group(self, group):
         self.piece_groups[group.get_owner().pid].remove(group)
 
-    def get_hval(self, pid):
-        res = 0
-        for piece_len, groups in enumerate(
-                self.piece_groups[pid].get_groups()):
-            group_count = len(groups)
-            res += group_count * HVALTAB[piece_len]
-        return res
+    def get_piece_groups(self):
+        return self.piece_groups
 
     def add_possible_move(self, x, y):
         pm = self.possible_moves

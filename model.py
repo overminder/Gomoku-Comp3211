@@ -11,6 +11,9 @@ class Player(object):
     def get_next(self):
         return self.cache[(self.pid + 1) % len(self.cache)]
 
+    def get_prev(self):
+        return self.cache[(self.pid - 1) % len(self.cache)]
+
 circle = Player('Circle', 'O')
 cross = Player('Cross', 'X')
 #square = Player('Square', '=')
