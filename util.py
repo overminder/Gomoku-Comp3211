@@ -41,6 +41,8 @@ def make_make_neighbours(width=2):
     #print '\n'.join(code)
     return env['make_neighbours']
 
+# It already handles out-of-bound moves so there is no need
+# to check for illegal move in gamemodel.Board.add_possible_move
 def make_memorized_neighbours(size):
     table = [[None] * size for _ in xrange(size)]
     make_neighbours = make_make_neighbours(width=2)

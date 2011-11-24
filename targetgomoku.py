@@ -6,14 +6,14 @@ from visualize import visualize_board, visualize_stat
 
 def main(argv):
     board = Board()
-    board.put_at(9, 9, circle)
-    board.put_at(10, 10, circle)
+    board.put_at(18, 18, circle)
+    board.put_at(17, 18, circle)
     player = circle.get_next()
     try:
-        #while True:
-        for _ in xrange(20):
+        while True:
+        #for _ in xrange(20):
             future = Future(board, player)
-            hval = future.naive_minimax(4, player) # minimax
+            hval = future.naive_minimax(6, player) # minimax
             #hval = future.alphabeta(4, -(1 << 31), (1 << 31), player) # w/prune
             (x, y) = future.move
             board.put_at(x, y, player)

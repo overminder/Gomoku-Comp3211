@@ -1,5 +1,6 @@
 from util import (BOARD_SIZE, SmallSet, PLAYER_COUNT, Player,
         circle, cross, make_chess_space, make_neighbours)
+from pieces import Piece, merge_dual, PieceGroup
 
 class Board(object):
     def __init__(self):
@@ -28,7 +29,6 @@ class Board(object):
             group.remove(self, piece)
 
     def put_at(self, x, y, player):
-        from pieces import Piece, merge_dual
         piece = Piece(x, y, player)
         self.space[y][x] = piece
         for neighbour in self.find_mergeable_neighbours(piece):
@@ -43,7 +43,6 @@ class Board(object):
         self.piece_groups[pid][length] -= 1
 
     def get_hval(self, pid):
-        from pieces import PieceGroup
         res = 0
         for length, number in enumerate(self.piece_groups[pid]):
             if number:
@@ -55,7 +54,7 @@ class Board(object):
         pm.del_at(x, y)
         for (nx, ny) in make_neighbours(x, y):
         #for (nx, ny) in make_larger_neighbours(x, y):
-            if self.pos_is_valid(nx, ny) and self.get_at(nx, ny) is None:
+            if self.get_at(nx, ny) is None:
                 pm.put_at(nx, ny)
 
     def get_possible_moves(self):
