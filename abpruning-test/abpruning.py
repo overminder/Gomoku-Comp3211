@@ -188,7 +188,6 @@ def main(argv):
     print '[Naive] time-used => %s' % naive_time
     print '[Naive] leaf => %s' % future_naive.get_leaf().to_string()
 
-    # XXX: sometimes the value of future_ab is larger than that of naive..
     print '[Prune] value => %s, count => %s' % (ab_value, ab_count)
     print '[Prune] time-used => %s' % ab_time
     print '[Naive] leaf => %s' % future_ab.get_leaf().to_string()

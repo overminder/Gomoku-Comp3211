@@ -1,14 +1,15 @@
 from unittest import TestCase
 from random import shuffle
 
-from gamemodel import Board, circle, cross, SmallSet
-from pieces import Piece, PieceGroup, DiagonalUp, merge_dual
+from board import Board
+from model import circle, cross, SmallSet
+from pieces import HVALTAB
 
 p1 = circle
 p2 = cross
 
 def len2hval(length):
-    return PieceGroup.HVALTAB[length]
+    return HVALTAB[length]
 
 '''
 class TestPieces(TestCase):
@@ -143,7 +144,8 @@ class TestBoardModel_WithAddingInDiagonalUp(TestCase):
         self.assertEquals(self.board.get_hval(p.pid), val)
 
     def assert_has_nb_groups(self, length, count, p=p1):
-        self.assertEquals(self.board.piece_groups[p.pid][length], count)
+        self.assertEquals(self.board.piece_groups[p.pid].count_of(length),
+                          count)
 
     def assert_pt_has_nb_groups(self, nth_pt, length):
         x, y = self.pts[nth_pt]
@@ -421,27 +423,5 @@ class TestSmallSet(TestCase):
             lis.append(it.get_next())
 
         self.assertEquals(len(lis), 19 * 19)
-        self.assertEquals(lis, reference)
-
-    def test_transcation_1(self):
-        reference = []
-        self.ss.enter_transcation()
-        for y in xrange(19):
-            for x in xrange(19):
-                reference.append((x, y))
-                self.ss.put_at(x, y)
-        res = self.ss.leave_transcation()
-        
-        lis = []
-        it = self.ss.get_iterator()
-        while it.has_next():
-            lis.append(it.get_next())
-
-        self.assertEquals(len(lis), 0)
-
-        lis = []
-        it = res.get_iterator()
-        while it.has_next():
-            lis.append(it.get_next())
         self.assertEquals(lis, reference)
 

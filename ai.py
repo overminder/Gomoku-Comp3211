@@ -7,7 +7,7 @@
           consideration)
           Three-player minimax/alpha-beta-pruning
 """
-from gamemodel import PLAYER_COUNT
+from model import PLAYER_COUNT
 
 class Future(object):
     def __init__(self, board, player):

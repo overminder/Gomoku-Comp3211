@@ -32,11 +32,11 @@ class Piece(object):
         return '<piece (%s %s %s) %s>' % (self.x, self.y, self.owner,
                                           self.groups)
 
+#          0x 1x 2x 3x  4x  5x     6x      7x       8x
+HVALTAB = [0, 0, 4, 15, 35, 99999, 999999, 9999999, 99999999]
+# for 2(2x) -> 2(3x) but not 3x->4x, 2(3x - 2x) > 4x - 3x
 
 class PieceGroup(object):
-    #          0x 1x 2x 3x  4x   5x     6x     7x     8x
-    HVALTAB = [0, 0, 4, 15, 35, 99999, 999999, 9999999, 99999999]
-    # for 2(2x) -> 2(3x) but not 3x->4x, 2(3x - 2x) > 4x - 3x
 
     def __init__(self):
         self.pieces = []
@@ -45,7 +45,7 @@ class PieceGroup(object):
         return len(self.pieces)
 
     def get_hval(self):
-        return self.HVALTAB[self.get_length()]
+        return HVALTAB[self.get_length()]
 
     def get_min_x(self):
         # pypy work around..
@@ -77,7 +77,7 @@ class PieceGroup(object):
         raise NotImplementedError
 
     def disband(self, board):
-        board.del_piece_group_(self.get_owner().pid, self.get_length())
+        board.del_piece_group(self)
         for piece in self.pieces:
             piece.groups.remove(self)
 
@@ -91,25 +91,25 @@ class GroupWithChangeInX(PieceGroup):
         PieceGroup.__init__(self) # workaround.
 
     def remove(self, board, piece):
-        board.del_piece_group_(self.get_owner().pid, self.get_length())
+        board.del_piece_group(self)
         left_pieces = [p for p in self.pieces if p.x < piece.x]
         rite_pieces = [p for p in self.pieces if p.x > piece.x]
 
         for left_piece in left_pieces:
             left_piece.groups.remove(self)
         if len(left_pieces) > 1: # Necessary to make a new group.
-            board.add_piece_group_(self.get_owner().pid, len(left_pieces))
             left_group = self.__class__()
             for left_piece in left_pieces:
                 left_group.add(left_piece)
+            board.add_piece_group(left_group)
 
         for rite_piece in rite_pieces:
             rite_piece.groups.remove(self)
         if len(rite_pieces) > 1: # Necessary to make a new group.
-            board.add_piece_group_(self.get_owner().pid, len(rite_pieces))
             rite_group = self.__class__()
             for rite_piece in rite_pieces:
                 rite_group.add(rite_piece)
+            board.add_piece_group(rite_group)
 
 
 class DiagonalUp(GroupWithChangeInX):
@@ -127,10 +127,12 @@ class DiagonalUp(GroupWithChangeInX):
         min_y = self.get_min_y()
 
         if piece.x == min_x - 1 and piece.y == min_y + self_len:
+            board.del_piece_group(self)
             # piece -v ./
             self.add(piece)
             look_ahead = board.get_at(piece.x - 1, piece.y + 1)
         elif piece.x == min_x + self_len and piece.y == min_y - 1:
+            board.del_piece_group(self)
             # / ^- piece
             self.add(piece)
             look_ahead = board.get_at(piece.x + 1, piece.y - 1)
@@ -138,8 +140,7 @@ class DiagonalUp(GroupWithChangeInX):
             # Cannot merge.
             return
 
-        board.del_piece_group_(self.get_owner().pid, self_len) # After merge
-        board.add_piece_group_(self.get_owner().pid, self.get_length())
+        board.add_piece_group(self)
         if look_ahead and look_ahead.owner is piece.owner:
             self.merge(board, look_ahead)
             # could go on merging containing group.
@@ -177,10 +178,12 @@ class DiagonalDown(GroupWithChangeInX):
         min_y = self.get_min_y()
 
         if piece.x == min_x - 1 and piece.y == min_y - 1:
+            board.del_piece_group(self)
             # piece -^ \
             self.add(piece)
             look_ahead = board.get_at(piece.x - 1, piece.y - 1)
         elif piece.x == min_x + self_len and piece.y == min_y + self_len:
+            board.del_piece_group(self)
             # \ v- piece
             self.add(piece)
             look_ahead = board.get_at(piece.x + 1, piece.y + 1)
@@ -188,8 +191,7 @@ class DiagonalDown(GroupWithChangeInX):
             # Cannot merge.
             return
 
-        board.del_piece_group_(self.get_owner().pid, self_len) # After merge
-        board.add_piece_group_(self.get_owner().pid, self.get_length())
+        board.add_piece_group(self)
         if look_ahead and look_ahead.owner is piece.owner:
             self.merge(board, look_ahead)
             # could go on merging containing group.
@@ -226,10 +228,12 @@ class Horizontal(GroupWithChangeInX):
         min_y = self.get_min_y()
 
         if piece.x == min_x - 1 and piece.y == min_y:
+            board.del_piece_group(self)
             # piece -> -
             self.add(piece)
             look_ahead = board.get_at(piece.x - 1, piece.y)
         elif piece.x == min_x + self_len and piece.y == min_y:
+            board.del_piece_group(self)
             # \ v- piece
             self.add(piece)
             look_ahead = board.get_at(piece.x + 1, piece.y)
@@ -237,8 +241,7 @@ class Horizontal(GroupWithChangeInX):
             # Cannot merge.
             return
 
-        board.del_piece_group_(self.get_owner().pid, self_len) # After merge
-        board.add_piece_group_(self.get_owner().pid, self.get_length())
+        board.add_piece_group(self)
         if look_ahead and look_ahead.owner is piece.owner:
             self.merge(board, look_ahead)
             # could go on merging containing group.
@@ -267,7 +270,7 @@ class GroupWithChangeInY(PieceGroup):
         PieceGroup.__init__(self) # workaround.
 
     def remove(self, board, piece):
-        board.del_piece_group_(self.get_owner().pid, self.get_length())
+        board.del_piece_group(self)
         top_pieces = [p for p in self.pieces if p.y < piece.y]
         bottom_pieces = [p for p in self.pieces if p.y > piece.y]
 
@@ -277,7 +280,7 @@ class GroupWithChangeInY(PieceGroup):
             top_group = self.__class__()
             for top_piece in top_pieces:
                 top_group.add(top_piece)
-            board.add_piece_group_(self.get_owner().pid, len(top_pieces))
+            board.add_piece_group(top_group)
 
         for bottom_piece in bottom_pieces:
             bottom_piece.groups.remove(self)
@@ -285,7 +288,7 @@ class GroupWithChangeInY(PieceGroup):
             bottom_group = self.__class__()
             for bottom_piece in bottom_pieces:
                 bottom_group.add(bottom_piece)
-            board.add_piece_group_(self.get_owner().pid, len(bottom_pieces))
+            board.add_piece_group(bottom_group)
 
 class Vertical(GroupWithChangeInY):
     ' - '
@@ -303,10 +306,12 @@ class Vertical(GroupWithChangeInY):
         min_y = self.get_min_y()
 
         if piece.x == min_x and piece.y == min_y - 1:
+            board.del_piece_group(self)
             # piece -> -
             self.add(piece)
             look_ahead = board.get_at(piece.x, piece.y - 1)
         elif piece.x == min_x and piece.y == min_y + self_len:
+            board.del_piece_group(self)
             # \ v- piece
             self.add(piece)
             look_ahead = board.get_at(piece.x, piece.y + 1)
@@ -314,8 +319,7 @@ class Vertical(GroupWithChangeInY):
             # Cannot merge.
             return
 
-        board.del_piece_group_(self.get_owner().pid, self_len) # After merge
-        board.add_piece_group_(self.get_owner().pid, self.get_length())
+        board.add_piece_group(self)
         if look_ahead and look_ahead.owner is piece.owner:
             self.merge(board, look_ahead)
             # could go on merging containing group.
@@ -359,7 +363,7 @@ def merge_dual(board, new, old):
         return merge_dual(board, old, new) # flip.
     new_group.add(new)
     new_group.add(old)
-    board.add_piece_group_(new.owner.pid, 2)
+    board.add_piece_group(new_group)
 
     # try to merge ahead. XXX: pypy hack to use list
     piece1, piece2 = board.get_at(*look_ahead_1), board.get_at(*look_ahead_2)
@@ -369,4 +373,22 @@ def merge_dual(board, new, old):
             for group in la_piece.groups[:]:
                 if new_group.is_superset_of(group):
                     group.disband(board)
+
+
+class PieceGroupManager(object):
+    def __init__(self, piece_lengths):
+        self._groups = [[] for _ in xrange(piece_lengths + 1)]
+
+    def put(self, piece):
+        self._groups[piece.get_length()].append(piece)
+
+    def remove(self, piece):
+        self._groups[piece.get_length()].remove(piece)
+
+    def count_of(self, len_spec):
+        return len(self._groups[len_spec])
+
+    def get_groups(self):
+        return self._groups
+
 

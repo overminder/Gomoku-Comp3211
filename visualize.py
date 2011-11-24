@@ -1,4 +1,4 @@
-from gamemodel import Player
+from model import Player
 
 def visualize_board(board):
     buf = ['  /' + '-' * board.size]
@@ -25,10 +25,10 @@ def visualize_stat(board, player, x, y, hval):
     buf.append('[move=(%s, %s, %s), future-hval = %s]' %
                (player.mark, x, y, hval,))
     # and format their owning piece groups.
-    for pid, player_stat in enumerate(board.piece_groups):
-        stat = ['%s x %d' % (NUM2WORD[length], count)
-                 for (length, count) in enumerate(player_stat)
-                 if count > 0]
+    for pid, group_man in enumerate(board.piece_groups):
+        stat = ['%s x %d' % (NUM2WORD[length], len(groups))
+                 for (length, groups) in enumerate(group_man.get_groups())
+                 if len(groups) > 0]
         buf.append('[owning-groups for %s -- %s]' % (
                 Player.cache[pid].name, ', '.join(stat)))
 
