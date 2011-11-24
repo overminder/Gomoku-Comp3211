@@ -1,3 +1,8 @@
+""" board.py
+
+    Contains the central object of Gomoku game -- the board.
+"""
+
 from model import (BOARD_SIZE, SmallSet, PLAYER_COUNT, make_chess_space,
                    make_neighbours, make_larger_neighbours)
 from pieces import Piece, merge_dual, PieceGroupManager, HVALTAB

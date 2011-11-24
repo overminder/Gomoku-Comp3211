@@ -1,3 +1,8 @@
+""" visualize.py
+
+    Displays the board.
+"""
+
 from model import Player
 
 def visualize_board(board):

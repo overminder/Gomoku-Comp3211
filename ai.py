@@ -2,12 +2,11 @@
 
     Contains implementation for naive minimax and alpha-beta-pruning.
 
-    TODO: better end-state predication.
+    TODO: better end-state predication. <- Done
           heuristic function that is more precise (take open/close into
-          consideration)
-          Three-player minimax/alpha-beta-pruning
+          consideration) <- Done but could there be any efficiency improvement?
+          Three-player minimax/alpha-beta-pruning <- Hmmm...
 """
-from model import PLAYER_COUNT
 
 class Future(object):
     def __init__(self, board, player):

@@ -1,3 +1,8 @@
+""" targetgomoku.py
+
+    The entrypoint for regular python executaion and for rpy-toolchain
+    translation.
+"""
 import __pypy_path__
 from pypy.rlib.objectmodel import we_are_translated
 
@@ -48,5 +53,6 @@ def target(driver, argl):
     return main, None
 
 if __name__ == '__main__':
-    main([])
+    import sys
+    main(sys.argv)
 

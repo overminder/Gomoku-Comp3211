@@ -1,3 +1,7 @@
+""" model.py
+
+    Misc game-related collections.
+"""
 
 class Player(object):
     cache = []
