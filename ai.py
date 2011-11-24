@@ -22,7 +22,7 @@ class Future(object):
             pm_iter = saved_pmoves.get_iterator()
             while pm_iter.has_next():
                 (x, y) = pm_iter.get_next()
-                self.board.set_possible_moves(saved_pmoves.make_copy())
+                self.board.set_possible_moves(saved_pmoves)
                 self.board.put_at(x, y, mover)
                 next_future = Future(self.board, self.player)
                 future_value = next_future.alphabeta(depth - 1,
@@ -39,7 +39,7 @@ class Future(object):
             pm_iter = saved_pmoves.get_iterator()
             while pm_iter.has_next():
                 (x, y) = pm_iter.get_next()
-                self.board.set_possible_moves(saved_pmoves.make_copy())
+                self.board.set_possible_moves(saved_pmoves)
                 self.board.put_at(x, y, mover)
                 next_future = Future(self.board, self.player)
                 future_value = next_future.alphabeta(depth - 1,

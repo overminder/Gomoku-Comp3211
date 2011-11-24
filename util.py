@@ -56,30 +56,50 @@ def make_neighbours(x, y):
     return _memorized_neighbours[y][x]
 
 
+class BitSet(object):
+    def __init__(self, size):
+        self.data = ['\0' * (size / 8 + 1)]
+
+    def put_at(self, nth):
+        hi = nth >> 3
+        lo = nth &  7
+        self.data[hi] |= (1 << lo)
+
+    def del_at(self, nth):
+        hi = nth >> 3
+        lo = nth &  7
+        self.data[hi] &= (~(1 << lo))
+
+    def get_at(self, nth):
+        hi = nth >> 3
+        lo = nth &  7
+        return self.data[hi] & (1 << lo)
+
 # For efficient move recording.
+# This is a small bitset with only 64-bit wide.
+# XXX: change to use the BitSet above instead? it's only 1/3 utilization...
 class SmallSet(object):
     def __init__(self, size, data=None):
+        assert size < 64
         self.size = size
         if not data:
-            data = [[False] * size for _ in xrange(size)]
+            data = [0] * size
         self.data = data
 
     def put_at(self, x, y):
-        self.data[y][x] = True
+        self.data[y] |= (1 << x)
 
     def del_at(self, x, y):
-        self.data[y][x] = False
+        self.data[y] &= (~(1 << x))
 
     def get_at(self, x, y):
-        return self.data[y][x]
+        return self.data[y] & (1 << x)
 
     def get_iterator(self):
         return SmallSetIterator(self)
 
     def make_copy(self):
-        # XXX: reduce copy overhead.
-        data = [row[:] for row in self.data]
-        return SmallSet(self.size, data)
+        return SmallSet(self.size, self.data[:])
 
 class SmallSetIterator(object):
     def __init__(self, base):

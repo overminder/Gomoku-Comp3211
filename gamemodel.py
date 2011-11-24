@@ -1,5 +1,5 @@
-from util import (BOARD_SIZE, SmallSet, PLAYER_COUNT, Player, circle,
-        make_chess_space, make_neighbours)
+from util import (BOARD_SIZE, SmallSet, PLAYER_COUNT, Player,
+        circle, cross, make_chess_space, make_neighbours)
 
 class Board(object):
     def __init__(self):

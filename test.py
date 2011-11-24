@@ -423,3 +423,25 @@ class TestSmallSet(TestCase):
         self.assertEquals(len(lis), 19 * 19)
         self.assertEquals(lis, reference)
 
+    def test_transcation_1(self):
+        reference = []
+        self.ss.enter_transcation()
+        for y in xrange(19):
+            for x in xrange(19):
+                reference.append((x, y))
+                self.ss.put_at(x, y)
+        res = self.ss.leave_transcation()
+        
+        lis = []
+        it = self.ss.get_iterator()
+        while it.has_next():
+            lis.append(it.get_next())
+
+        self.assertEquals(len(lis), 0)
+
+        lis = []
+        it = res.get_iterator()
+        while it.has_next():
+            lis.append(it.get_next())
+        self.assertEquals(lis, reference)
+

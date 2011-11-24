@@ -1,3 +1,5 @@
+import __pypy_path__
+from pypy.rlib.objectmodel import we_are_translated
 from gamemodel import Board, circle
 from ai import Future
 from visualize import visualize_board, visualize_stat
@@ -23,7 +25,10 @@ def main(argv):
                 break
             player = player.get_next()
     except KeyboardInterrupt:
-        pass
+        if we_are_translated():
+            pass
+        else:
+            raise
     return 0
 
 def target(driver, argl):
