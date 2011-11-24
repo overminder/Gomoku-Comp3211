@@ -5,6 +5,11 @@ from ai import Future
 from visualize import visualize_board, visualize_stat
 
 def main(argv):
+    try:
+        search_depth = int(argv[1])
+    except (IndexError, ValueError):
+        search_depth = 4
+
     board = Board()
     board.put_at(10, 10, circle)
     player = circle.get_next()
@@ -13,7 +18,8 @@ def main(argv):
         #for _ in xrange(20):
             future = Future(board, player)
             # w/pruning.
-            hval = future.alphabeta(6, -(1 << 30), (1 << 30), player)
+            hval = future.alphabeta(search_depth,
+                                    -(1 << 60), (1 << 60), player)
             (x, y) = future.move
             board.put_at(x, y, player)
             visualize_board(board)

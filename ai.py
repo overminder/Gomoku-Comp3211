@@ -1,3 +1,12 @@
+""" ai.py
+
+    Contains implementation for naive minimax and alpha-beta-pruning.
+
+    TODO: better end-state predication.
+          heuristic function that is more precise (take open/close into
+          consideration)
+          Three-player minimax/alpha-beta-pruning
+"""
 from gamemodel import PLAYER_COUNT
 
 class Future(object):

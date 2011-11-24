@@ -43,19 +43,22 @@ def make_make_neighbours(width=2):
 
 # It already handles out-of-bound moves so there is no need
 # to check for illegal move in gamemodel.Board.add_possible_move
-def make_memorized_neighbours(size):
+def make_memorized_neighbours(width):
+    size = BOARD_SIZE
     table = [[None] * size for _ in xrange(size)]
-    make_neighbours = make_make_neighbours(width=2)
+    make_neighbours = make_make_neighbours(width=width)
     for x in xrange(size):
         for y in xrange(size):
             neighbours = [(nx, ny) for (nx, ny) in make_neighbours(x, y)
                           if 0 <= nx < size and 0 <= ny < size]
             table[y][x] = neighbours
-    return table
 
-_memorized_neighbours = make_memorized_neighbours(BOARD_SIZE)
-def make_neighbours(x, y):
-    return _memorized_neighbours[y][x]
+    def make_neighbours(x, y):
+        return table[y][x]
+    return make_neighbours
+
+make_neighbours = make_memorized_neighbours(2)
+make_larger_neighbours = make_memorized_neighbours(3)
 
 
 class BitSet(object):

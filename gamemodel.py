@@ -1,5 +1,6 @@
 from util import (BOARD_SIZE, SmallSet, PLAYER_COUNT, Player,
-        circle, cross, make_chess_space, make_neighbours)
+        circle, cross, make_chess_space, make_neighbours,
+        make_larger_neighbours)
 from pieces import Piece, merge_dual, PieceGroup
 
 class Board(object):
@@ -52,8 +53,8 @@ class Board(object):
     def add_possible_move(self, x, y):
         pm = self.possible_moves
         pm.del_at(x, y)
-        for (nx, ny) in make_neighbours(x, y):
-        #for (nx, ny) in make_larger_neighbours(x, y):
+        #for (nx, ny) in make_neighbours(x, y):
+        for (nx, ny) in make_larger_neighbours(x, y):
             if self.get_at(nx, ny) is None:
                 pm.put_at(nx, ny)
 
