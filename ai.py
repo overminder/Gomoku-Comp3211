@@ -8,6 +8,8 @@
           Three-player minimax/alpha-beta-pruning <- Hmmm...
 """
 
+from model import make_larger_neighbours
+
 class Future(object):
     def __init__(self, board, player):
         self.board = board
@@ -33,7 +35,7 @@ class Future(object):
                 for piece_group in piece_groups:
                     enemy_hvals += piece_group.heuristic_eval(self.board)
 
-        return self_hval - 2 * enemy_hvals
+        return self_hval - (enemy_hvals + enemy_hvals >> 1)
 
     def alphabeta(self, depth, alpha, beta, mover):
         if depth == 0:

@@ -32,6 +32,8 @@ def main(argv):
             # w/pruning.
             hval = future.alphabeta(search_depth,
                                     -(1 << 60), (1 << 60), player)
+            #hval = future.alphabeta_with_hotspot(search_depth,
+            #                        -(1 << 60), (1 << 60), (-1, -1), player)
             (x, y) = future.move
             board.put_at(x, y, player)
             visualize_board(board)
@@ -49,6 +51,8 @@ def main(argv):
     return 0
 
 def target(driver, argl):
+    print driver, argl
+    print type(driver), type(argl)
     driver.exe_name = 'gomoku-c'
     return main, None
 
