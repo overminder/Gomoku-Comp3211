@@ -108,6 +108,20 @@ class PieceGroup(object):
         raise NotImplementedError
 
     def heuristic_eval(self, board):
+        """ Evaluate the value of myself.
+            The idea is treat myself as a virtual group of length 5 and
+            look ahead until an enemy or wall has been reached.
+            The value is based on the number of the elements inside the
+            virtual group.
+            E.g., [me, me, empty, me, me] will be seen as
+            2 * vgroup(2) + 2 * vgroup(4) while [me, me, empty, me]
+            will be seen as vgroup(2) + vgroup(3)
+
+            XXX: There is an appearant bug in the first -- vgroup(4) is
+            counted twice! It's not only buggy but also wrong.
+
+            Meh... Just use the current algor for now.
+        """
         raise NotImplementedError
 
 

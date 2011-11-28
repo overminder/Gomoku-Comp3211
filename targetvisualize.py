@@ -1,7 +1,6 @@
-""" targetgomoku.py
+""" targetvisualize.py
 
-    The entrypoint for regular python executaion and for rpy-toolchain
-    translation.
+    The entrypoint for visualizing ai players fighting.
 """
 import __pypy_path__
 from pypy.rlib.objectmodel import we_are_translated
@@ -29,11 +28,12 @@ def main(argv):
     try:
         for _ in xrange(round_limit):
             future = Future(board, player)
+            #hval = future.naive_minimax(search_depth, player)
             # w/pruning.
-            hval = future.alphabeta(search_depth,
-                                    -(1 << 60), (1 << 60), player)
-            #hval = future.alphabeta_with_hotspot(search_depth,
-            #                        -(1 << 60), (1 << 60), (-1, -1), player)
+            #val = future.alphabeta(search_depth,
+            #                        -(1 << 60), (1 << 60), player)
+            hval = future.alphabeta_3p(search_depth,
+                                       -(1 << 60), (1 << 60), player)
             (x, y) = future.move
             board.put_at(x, y, player)
             visualize_board(board)
@@ -51,9 +51,7 @@ def main(argv):
     return 0
 
 def target(driver, argl):
-    print driver, argl
-    print type(driver), type(argl)
-    driver.exe_name = 'gomoku-c'
+    driver.exe_name = 'visualize-c'
     return main, None
 
 if __name__ == '__main__':

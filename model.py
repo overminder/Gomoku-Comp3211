@@ -20,7 +20,7 @@ class Player(object):
 
 circle = Player('Circle', 'O')
 cross = Player('Cross', 'X')
-#square = Player('Square', '=')
+square = Player('Square', '=')
 
 PLAYER_COUNT = len(Player.cache)
 

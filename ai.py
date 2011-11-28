@@ -8,7 +8,7 @@
           Three-player minimax/alpha-beta-pruning <- Hmmm...
 """
 
-from model import make_larger_neighbours
+from model import PLAYER_COUNT
 
 class Future(object):
     def __init__(self, board, player):
@@ -17,8 +17,6 @@ class Future(object):
         self.move = None
 
     def heuristic_eval(self):
-        # XXX: using different marking scheme on self/enemy players?
-
         # evaluating the max player's heuristic value.
         self_hval = 0
         self_group_man = self.board.get_piece_groups()[self.player.pid]
@@ -34,6 +32,7 @@ class Future(object):
             for piece_groups in group_man.get_groups():
                 for piece_group in piece_groups:
                     enemy_hvals += piece_group.heuristic_eval(self.board)
+        enemy_hvals /= (PLAYER_COUNT - 1) # amortized enemy value
 
         return self_hval - (enemy_hvals + enemy_hvals >> 1)
 
@@ -71,6 +70,66 @@ class Future(object):
                 self.board.put_at(x, y, mover)
                 next_future = Future(self.board, self.player)
                 future_value = next_future.alphabeta(depth - 1,
+                        alpha, beta, mover.get_next())
+                self.board.del_at(x, y) # Restore the board.
+                if future_value < beta:
+                    beta = future_value
+                    self.move = [x, y]
+                if beta <= alpha:
+                    break
+            self.board.set_possible_moves(saved_pmoves)
+            return beta
+
+    def alphabeta_3p(self, depth, alpha, beta, mover):
+        if depth == 0:
+            # leaf reached -- just get the heuristic value
+            return self.heuristic_eval()
+        elif self.board.get_piece_groups()[mover.get_prev().pid].count_of(5):
+            # ending case -- someone is winning here.
+            return self.heuristic_eval()
+
+        # prepare for searching
+        saved_pmoves = self.board.get_possible_moves()
+        pm_iter = saved_pmoves.get_iterator()
+
+        if mover is self.player: # max move
+            while pm_iter.has_next():
+                (x, y) = pm_iter.get_next()
+                self.board.set_possible_moves(saved_pmoves.make_copy())
+                self.board.put_at(x, y, mover)
+                next_future = Future(self.board, self.player)
+                future_value = next_future.alphabeta_3p(depth - 1,
+                        alpha, beta, mover.get_next())
+                self.board.del_at(x, y) # Restore the board.
+                if future_value > alpha:
+                    alpha = future_value
+                    self.move = [x, y]
+                if beta <= alpha:
+                    break
+            self.board.set_possible_moves(saved_pmoves)
+            return alpha
+        elif mover is self.player.get_next():
+            # the first min move, just brute through
+            while pm_iter.has_next():
+                (x, y) = pm_iter.get_next()
+                self.board.set_possible_moves(saved_pmoves.make_copy())
+                self.board.put_at(x, y, mover)
+                next_future = Future(self.board, self.player)
+                future_value = next_future.alphabeta_3p(depth - 1,
+                        alpha, beta, mover.get_next())
+                self.board.del_at(x, y) # Restore the board.
+                if future_value < beta:
+                    beta = future_value
+                    self.move = [x, y]
+            self.board.set_possible_moves(saved_pmoves)
+            return beta
+        else: # the second min move, can prune
+            while pm_iter.has_next():
+                (x, y) = pm_iter.get_next()
+                self.board.set_possible_moves(saved_pmoves.make_copy())
+                self.board.put_at(x, y, mover)
+                next_future = Future(self.board, self.player)
+                future_value = next_future.alphabeta_3p(depth - 1,
                         alpha, beta, mover.get_next())
                 self.board.del_at(x, y) # Restore the board.
                 if future_value < beta:
