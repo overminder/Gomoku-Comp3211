@@ -3,7 +3,16 @@
     The entrypoint for compile comp221 project.
 """
 
-import __pypy_path__
+import sys
+try:
+    import __pypy_path__
+    from pypy.rlib import parsing
+except ImportError:
+    print 'Error: PyPy/RPython toolchain is not installed.'
+    print 'Gomoku requires pypy.rlib.parsing.makepackrat for its parser.'
+    print 'Please visit www.pypy.org to get this toolchain.'
+    sys.exit(1)
+
 from ai import Future
 from comp221io import load_game
 
@@ -27,23 +36,21 @@ def main(argv):
         search_depth = DEFAULT_SEARCH_DEPTH
 
     try:
-        while True:
-            future = Future(board, player)
-            future.alphabeta_3p(search_depth, -(1 << 60), (1 << 60), player)
-            future.dump()
-            x, y = future.move
-            board.put_at(x, y, player)
-            player = player.get_next()
+        future = Future(board, player)
+        future.alphabeta_3p(search_depth, -(1 << 60), (1 << 60), player)
+        future.dump()
+        x, y = future.move
+        board.put_at(x, y, player)
+        player = player.get_next()
     except KeyboardInterrupt:
         print '[interrupt] received SIGINT, halting...'
     return 0
 
 def target(driver, argl):
-    driver.exe_name = 'comp221-c'
+    driver.exe_name = 'gomoku'
     return main, None
 
 if __name__ == '__main__':
-    import sys
     main(sys.argv)
 
 
