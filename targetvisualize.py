@@ -10,16 +10,20 @@ from model import circle
 from ai import Future
 from visualize import visualize_board, visualize_stat
 
+DEFAULT_ROUND_LIMIT = 99999
+
 def main(argv):
     try:
         search_depth = int(argv[1])
     except (IndexError, ValueError):
-        search_depth = 4
+        print 'usage: %s [SearchDepth [RoundLimit=%s]]' % (
+                argv[0], DEFAULT_ROUND_LIMIT)
+        return 1
 
     try:
         round_limit = int(argv[2])
     except (IndexError, ValueError):
-        round_limit = 99999
+        round_limit = DEFAULT_ROUND_LIMIT
 
     board = Board()
     board.put_at(10, 10, circle)
@@ -44,10 +48,7 @@ def main(argv):
                 break
             player = player.get_next()
     except KeyboardInterrupt:
-        if we_are_translated():
-            pass
-        else:
-            raise
+        pass
     return 0
 
 def target(driver, argl):

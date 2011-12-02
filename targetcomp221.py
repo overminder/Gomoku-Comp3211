@@ -8,9 +8,10 @@ try:
     import __pypy_path__
     from pypy.rlib import parsing
 except ImportError:
-    print 'Error: PyPy/RPython toolchain is not installed.'
-    print 'Gomoku requires pypy.rlib.parsing.makepackrat for its parser.'
-    print 'Please visit www.pypy.org to get this toolchain.'
+    werr = lambda s: sys.stderr.write('%s\n' % s)
+    werr('Error: PyPy/RPython toolchain is not installed.')
+    werr('Gomoku requires pypy.rlib.parsing.makepackrat for its parser.')
+    werr('Please visit www.pypy.org to get this toolchain.')
     sys.exit(1)
 
 from ai import Future
@@ -22,7 +23,8 @@ def main(argv):
     try:
         filename = argv[1]
     except IndexError:
-        print 'usage: %s [FileName [SearchDepth=3]]' % argv[0]
+        print 'usage: %s [FileName [SearchDepth=%s]]' % (
+                argv[0], DEFAULT_SEARCH_DEPTH)
         return 1
     try:
         (player, board) = load_game(filename)

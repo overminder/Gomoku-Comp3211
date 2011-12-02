@@ -33,13 +33,13 @@ def monkey_patch_future_class():
             return self.heuristic_eval()
 
         # prepare for searching
-        saved_pmoves = self.board.get_possible_moves()
-        pm_iter = saved_pmoves.get_iterator()
+        next_possible_moves = self.board.get_possible_moves()
+        npm_iterator = next_possible_moves.get_iterator()
 
         if mover is self.player: # max move
-            while pm_iter.has_next():
-                (x, y) = pm_iter.get_next()
-                self.board.set_possible_moves(saved_pmoves.make_copy())
+            while npm_iterator.has_next():
+                (x, y) = npm_iterator.get_next()
+                self.board.set_possible_moves(next_possible_moves.make_copy())
                 self.board.put_at(x, y, mover)
                 next_future = Future(self.board, self.player)
                 self.children.append((x, y, next_future)) # Record
@@ -50,16 +50,16 @@ def monkey_patch_future_class():
                     alpha = future_value
                     self.move = [x, y]
                 if beta <= alpha:
-                    self.children.append((x, y, None)) # record prune
+                    #self.children.append((x, y, None)) # record prune
                     break
-            self.board.set_possible_moves(saved_pmoves)
+            self.board.set_possible_moves(next_possible_moves)
             self.value = alpha
             return alpha
         elif mover is self.player.get_next():
             # the first min move, just brute through
-            while pm_iter.has_next():
-                (x, y) = pm_iter.get_next()
-                self.board.set_possible_moves(saved_pmoves.make_copy())
+            while npm_iterator.has_next():
+                (x, y) = npm_iterator.get_next()
+                self.board.set_possible_moves(next_possible_moves.make_copy())
                 self.board.put_at(x, y, mover)
                 next_future = Future(self.board, self.player)
                 self.children.append((x, y, next_future)) # Record
@@ -69,13 +69,13 @@ def monkey_patch_future_class():
                 if future_value < beta:
                     beta = future_value
                     self.move = [x, y]
-            self.board.set_possible_moves(saved_pmoves)
+            self.board.set_possible_moves(next_possible_moves)
             self.value = beta
             return beta
         else: # the second min move, can prune
-            while pm_iter.has_next():
-                (x, y) = pm_iter.get_next()
-                self.board.set_possible_moves(saved_pmoves.make_copy())
+            while npm_iterator.has_next():
+                (x, y) = npm_iterator.get_next()
+                self.board.set_possible_moves(next_possible_moves.make_copy())
                 self.board.put_at(x, y, mover)
                 next_future = Future(self.board, self.player)
                 self.children.append((x, y, next_future)) # Record
@@ -86,9 +86,9 @@ def monkey_patch_future_class():
                     beta = future_value
                     self.move = [x, y]
                 if beta <= alpha:
-                    self.children.append((x, y, None)) # record prune
+                    #self.children.append((x, y, None)) # record prune
                     break
-            self.board.set_possible_moves(saved_pmoves)
+            self.board.set_possible_moves(next_possible_moves)
             self.value = beta
             return beta
 
@@ -104,14 +104,16 @@ def monkey_patch_future_class():
         buf = []
         for x, y, child in self.children:
             if not child:
-                buf.append('[pruned]')
+                pass
+                #buf.append('[pruned]')
             else:
                 buf.append('[(%d,%d),%d]' % (x, y, child.value))
         print ('%s:' % prefix), (', '.join(buf))
         for x, y, child in self.children:
             if not child:
-                print '[pruned] Any child after <%s, (%d,%d)> is pruned' % (
-                        prefix, x, y)
+                pass
+                #print '[pruned] Any child after <%s, (%d,%d)> is pruned' % (
+                #        prefix, x, y)
             else:
                 child._dump(prefix + ', (%d,%d)' % (x, y))
 
@@ -176,7 +178,7 @@ def load_game(filename):
     f = open_file_as_stream(filename, 'r')
     content = f.readall().strip('\n')
     line0, line1 = content.split('\n')
-    player =  Player.cache[int(line0)]
+    player =  Player.cache[int(line0) - 1] # 1 for o, 2 for x, 3 for sq
     moves = TupleParser(line1).goal()
     board = Board()
     
